@@ -1,9 +1,10 @@
 {
-    "name": "korean",
-    "description": "korean BadWords Filter",
-    "version": "1.0.0",
+    "name": "korcen",
+    "description": "한국어 비속어 검열",
+    "version": "0.0.5",
+    "main": "dist/index.js",
     "scripts": {
-        "build": "rm -rf dist && rollup -c && tsc --emitDeclarationOnly --declaration --declarationDir types",
+        "build": "rm -rf dist && rollup -c && tsc",
         "prepack": "yarn build",
         "test": "jest --passWithNoTests",
         "typecheck": "tsc --noEmit"

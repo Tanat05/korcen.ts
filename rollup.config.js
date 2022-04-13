@@ -12,7 +12,7 @@ export default [
       { file: pkg.module, format: 'es' },
     ],
     plugins: [
-      typescript(),
+      typescript({ module: "ESNext" }),
       commonjs(),
       babel({
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
