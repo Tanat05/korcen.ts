@@ -1,4 +1,6 @@
 export function minor(text: string|any): boolean {
+    if(!text) throw new Error('Korean: 확인할 텍스트를 입력해 주세요');
+    if(typeof text !== 'string') throw new Error('Korean: String 타입만 입력 가능합니다');
     const newtext = text.toLowerCase()
     text = newtext.replace(/[^가-힣]/gi, '')
         const sonofagun = ["개같", "개가튼", "개쉑", "개스키", "개세끼", "개색히", "개가뇬", "개새기", "개쌔기", "개쌔끼", "쌖", "쎆", "새긔", "개소리", "개년", "개소리",
