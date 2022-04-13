@@ -1,6 +1,5 @@
 {
     "name": "korean",
-    "private": true,
     "description": "korean BadWords Filter",
     "version": "1.0.0",
     "scripts": {
