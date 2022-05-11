@@ -32,7 +32,7 @@ $ npm i korcen
 >PyPI  0.0.5
 ```py
 import korcen
-korcen = korcen.korcen()
+
 text = input()
 print(korcen.check(text))
 ```
