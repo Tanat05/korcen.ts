@@ -70,7 +70,7 @@ discord:  kisss#4755
 #### [JS](https://github.com/Tanat05/korcen/blob/main/korcen/korcen.js)
 >이루
 ```
-코드 변환 작업
+코드 변환 작업 및 
 
 github:   erukim
 discord:  이루#6410
