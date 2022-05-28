@@ -1,7 +1,7 @@
 {
     "name": "korcen",
     "description": "한국어 비속어 검열",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "main": "dist/index.js",
     "scripts": {
         "build": "rm -rf dist && rollup -c && tsc",
