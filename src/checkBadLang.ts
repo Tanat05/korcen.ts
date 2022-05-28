@@ -44,7 +44,7 @@ export function check(text: string|any): boolean {
     text = text.replace(/qkf/gi, '발')
     text = text.replace(/qk/gi, '바')
     text = text.replace(/[^ㄱ-힣]/gi, '')
-    let fuck = ["시ㅂ", "시ㅏㄹ", "씨ㅂ", "씨ㅏㄹ", "ㅣ발", "ㅆ발", "ㅅ발", "ㅅㅂ", "ㅆㅂ", "ㅆ바", "ㅅ바", "시ㅂㅏ", "ㅅㅂㅏ", "시ㅏㄹ", "씨ㅏㄹ", "ㅅ불", "ㅆ불","ㅅ쁠", "ㅆ뿔", "씨8", "sipal","ㅅ ㅣ akwkksw바알","샤빨","쌰뺠","스벌","개존맛","TQ","tq","rotoRl","개좇돼","시방","tlqkf","w같은","신발련","뷰우웅신","좇","^^ㅣ벌","^^벌","씨벌","18아","tㅂ","siba","tq","qt","ㅆㅍ"]
+    let fuck = ["시ㅂ", "시ㅏㄹ", "씨ㅂ", "씨ㅏㄹ", "ㅣ발", "ㅆ발", "ㅅ발", "ㅅㅂ", "ㅆㅂ", "ㅆ바", "ㅅ바", "시ㅂㅏ", "ㅅㅂㅏ", "시ㅏㄹ", "씨ㅏㄹ", "ㅅ불", "ㅆ불","ㅅ쁠", "ㅆ뿔", "씨8", "sipal","ㅅ ㅣ akwkksw바알","샤빨","쌰뺠","스벌","개존맛","TQ","tq","rotoRl","개좇돼","시방","tlqkf","w같은","신발련","뷰우웅신","좇","^^ㅣ벌","^^벌","씨벌","18아","tㅂ","siba","tq","qt","ㅆㅍ","Ribal","Libal"]
     for (const i of fuck) {
         if (text.includes(i)) {
             return true;
@@ -146,7 +146,7 @@ export function check(text: string|any): boolean {
     text = newtext.replace(/\^/gi, 'ㅅ')
     text = text.replace(/H/gi, 'ㅐ')
     text = text.replace(/[^가-힣]/gi, '')
-    const sonofbitch = ["ㅅㄲ", "ㅅ끼", "ㅆ끼", "쎆", "쌖","쌔꺄","새꺄"]
+    const sonofbitch = ["ㅅㄲ", "ㅅ끼", "ㅆ끼", "쎆", "쌖","쌔꺄","새꺄","씹색"]
     for (const i of sonofbitch) {
         if (text.includes(i)) {
             return true;
@@ -378,7 +378,7 @@ export function check(text: string|any): boolean {
     }
 
     text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    const your = ["ㄴㄱㅁ", "ㄴ금마", "느금ㅁ", "ㄴㄱ마", "ㄴㄱ빠", "ㄴ금빠"]
+    const your = ["ㄴㄱㅁ", "ㄴ금마", "느금ㅁ", "ㄴㄱ마", "ㄴㄱ빠", "ㄴ금빠","느금","누굼마"]
     for (const i of your) {
         if (text.includes(i)) {
             return true;
