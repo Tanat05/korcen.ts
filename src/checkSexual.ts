@@ -1,5 +1,5 @@
 export function sexual(text: string|any): boolean {
-    if(!text) throw new Error('Korean: 확인할 텍스트를 입력해 주세요');
+    if(!text) throw new Error('Korcen: 확인할 텍스트를 입력해 주세요');
     if(typeof text !== 'string') throw new Error('Korean: String 타입만 입력 가능합니다');
     const newtext = text.toLowerCase()
     text = newtext.replace(/[^ㄱ-힣]/gi, '')
@@ -70,7 +70,7 @@ export function sexual(text: string|any): boolean {
     text = text.replace(/sex/gi, '섹스')
     text = text.replace(/엑/gi, '')
     text = text.replace(/[^ㄱ-힣]/gi, '')
-    const sex = ["ㅅㅔㄱ스", "섹ㅅ", "ㅅ스", "세ㄱㅅ", "ㅅㅔㄱㅅ"]
+    const sex = ["ㅅㅔㄱ스", "섹ㅅ", "ㅅ스", "세ㄱㅅ", "ㅅㅔㄱㅅ","야플"]
     for (const i of sex) {
         if (text.includes(i)) {
             return true;
@@ -78,7 +78,7 @@ export function sexual(text: string|any): boolean {
     }
     text = newtext.replace(/[^가-힣]/gi, '')
     text = text.replace(/야스오/gi, '')
-    const sex2 = ["섹스", "섻스", "쉑스", "섿스", "섹그", "야스", "색스", "셱스", "섁스", "세엑스", "썩스"]
+    const sex2 = ["섹스", "섻스", "쉑스", "섿스", "섹그", "야스", "색스", "셱스", "섁스", "세엑스", "썩스","sex","Sex","ㅅㅅ"]
     for (const i of sex2) {
         if (text.includes(i)) {
             return true;
@@ -112,7 +112,7 @@ export function sexual(text: string|any): boolean {
 
     text = newtext.replace(/[^가-힣]/gi, '')
     const onahole4 = ["자궁문신"]
-    for (const i of onahole) {
+    for (const i of onahole4) {
         if (text.includes(i)) {
             return true;
         }
