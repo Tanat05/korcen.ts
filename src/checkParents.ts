@@ -3,7 +3,7 @@ export function parents(text: string|any): boolean {
     if(typeof text !== 'string') throw new Error('Korean: String 타입만 입력 가능합니다');
     const newtext = text.toLowerCase()
     text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    const your = ["ㄴㄱㅁ", "ㄴ금마", "느금ㅁ", "ㄴㄱ마", "ㄴㄱ빠", "ㄴ금빠"]
+    const your = ["ㄴㄱㅁ", "ㄴ금마", "느금ㅁ", "ㄴㄱ마", "ㄴㄱ빠", "ㄴ금빠","느금","누굼마"]
     for (const i of your) {
         if (text.includes(i)) {
             return true;
@@ -26,6 +26,7 @@ export function parents(text: string|any): boolean {
             return true;
         }
     }
+
 
     return false;
 }
