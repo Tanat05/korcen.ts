@@ -61,8 +61,10 @@ export function check(text: string | any): boolean {
     text = text.replace(/tl/gi, '시')
     text = text.replace(/qkf/gi, '발')
     text = text.replace(/qk/gi, '바')
+    text = text.replace(/피시방/gi, '')
+    text = text.replace(/피씨방/gi, '')
     text = text.replace(/[^ㄱ-힣]/gi, '')
-    let fuck = ["18놈", "ㅅㅍ", "시ㅂ", "시ㅏㄹ", "씨ㅂ", "씨ㅏㄹ", "ㅣ발", "ㅆ발", "ㅅㅣㅂㅏ", "ㅆㅣ발", "ㅅ발", "ㅅㅂ", "ㅆㅂ", "ㅆ바", "tlbal", "ㅅ바", "시ㅂㅏ", "ㅅㅂㅏ", "시ㅏㄹ", "ㅅㅟ발", "씨ㅏㄹ", "ㅅ불", "ㅆ불", "ㅅ쁠", "ㅆ뿔", "tlba", "씨8", "tlbak", "tlpal", "tlbar", "sipal", "tlval", "시bal", "시bar", "시bak", "시pal", "시qk", "시val", "si바", "si발", "si불", "si빨", "si팔", "tl바", "tl발", "tl불", "tl빨", "tl팔", "10발련", "10발넘", "10발놈", "10발년", "ㅅ ㅣ akwkksw바알", "tlqkd", "샤빨", "18련", "쌰뺠", "si8", "스벌", "개존맛", "t발", "TQ", "tq", "rotoRl", "개좇돼", "18뇬", "시방", "tlqkf", "sibak", "w같은", "신발련", "뷰우웅신", "좇", "^^ㅣ벌", "^^벌", "씨벌", "18아", "tㅂ", "siba", "tq", "qt", "ㅆㅍ", "Ribal", "Libal"]
+    let fuck = ["18놈", "ㅅㅍ", "시ㅂ", "시ㅏㄹ", "씨ㅂ","씨방", "씨ㅏㄹ", "ㅣ발", "ㅆ발", "ㅅㅣㅂㅏ", "ㅆㅣ발", "ㅅ발", "ㅅㅂ", "ㅆㅂ", "ㅆ바", "tlbal", "ㅅ바", "시ㅂㅏ", "ㅅㅂㅏ", "시ㅏㄹ", "ㅅㅟ발", "씨ㅏㄹ", "ㅅ불", "ㅆ불", "ㅅ쁠", "ㅆ뿔", "tlba", "씨8", "tlbak", "tlpal", "tlbar", "sipal", "tlval", "시bal", "시bar", "시bak", "시pal", "시qk", "시val", "si바", "si발", "si불", "si빨", "si팔", "tl바", "tl발", "tl불", "tl빨", "tl팔", "10발련", "10발넘", "10발놈", "10발년", "ㅅ ㅣ akwkksw바알", "tlqkd", "샤빨", "18련", "쌰뺠", "si8", "스벌", "개존맛", "t발", "TQ", "tq", "rotoRl", "개좇돼", "18뇬", "시방", "tlqkf", "sibak", "w같은", "신발련", "뷰우웅신", "좇", "^^ㅣ벌", "^^벌", "씨벌", "18아", "tㅂ", "siba", "tq", "qt", "ㅆㅍ", "Ribal", "Libal"]
     for (const i of fuck) {
         if (text.includes(i)) {
             return true;
