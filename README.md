@@ -3,14 +3,17 @@
   
   [![PyPI version](https://img.shields.io/pypi/v/korcen.svg?style=flat-square)](https://python.org/pypi/korcen)
   [![downloads](https://img.shields.io/pypi/dm/korcen.svg?style=flat-square)](https://pypi.org/project/korcen/)
-  
   [![NPM version](http://img.shields.io/npm/v/korcen.svg?style=flat-square)](https://www.npmjs.org/package/npm-expansions)
   [![downloads](http://img.shields.io/npm/dm/korcen.svg?style=flat-square)](https://www.npmjs.org/package/npm-expansions)
 </div>
 
+![131_20220604170616](https://user-images.githubusercontent.com/85154556/171998341-9a7439c8-122f-4a9f-beb6-0e0b3aad05ed.png)
+
 korean(한국어) censorship(검열)의 줄임말로 
 
 누구나 쉽게 텍스트에 비속어가 있는지 확인이 가능합니다.
+
+[서포트 디스코드](https://discord.gg/wyTU3ZQBPE)
 
 ## Licenses
 
@@ -33,7 +36,7 @@ $ npm i korcen
 
 비속어가 있다면 True 없다면 False 출력하는 예시입니다.
 
->PyPI  0.1.6
+>PyPI
 ```py
 from korcen import korcen
 
@@ -43,7 +46,7 @@ text = input()
 print(korcen.check(text))
 ```
 
->NPM 0.1.4
+>NPM
 ```js
 const { check } = require('korcen')
 var content = check("문자열")
