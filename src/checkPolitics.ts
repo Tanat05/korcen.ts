@@ -1,9 +1,10 @@
-export function politics(text: string|any): boolean {
-    if(!text) throw new Error('Korcen: 확인할 텍스트를 입력해 주세요');
-    if(typeof text !== 'string') throw new Error('Korean: String 타입만 입력 가능합니다');
+export function politics(text: string | any): boolean {
+    if (!text) throw new Error('Korcen: 확인할 텍스트를 입력해 주세요');
+    if (typeof text !== 'string') throw new Error('Korean: String 타입만 입력 가능합니다');
     const newtext = text.toLowerCase()
+
     text = newtext.replace(/[^가-힣]/gi, '')
-    const mh = ["노시개", "노알라", "뇌사모", "뇌물현"]
+    const mh = ["노시개", "노알라", "뇌사모", "뇌물현", "응디시티"]
     for (const i of mh) {
         if (text.includes(i)) {
             return true;
@@ -43,6 +44,18 @@ export function politics(text: string|any): boolean {
     }
 
     text = newtext.replace(/[^가-힣]/gi, '')
+    text = text.replace(/카톡/gi, "")
+    text = text.replace(/카페/gi, "")
+    text = text.replace(/하다가/gi, "")
+    text = text.replace(/먹다가/gi, "")
+    text = text.replace(/카와이/gi, "")
+    text = text.replace(/카츠/gi, "")
+    text = text.replace(/카레/gi, "")
+    text = text.replace(/니가/gi, "")
+    text = text.replace(/내가/gi, "")
+    text = text.replace(/너가/gi, "")
+    text = text.replace(/우리가/gi, "")
+    text = text.replace(/너희가/gi, "")
     const mb = ["가카", "이명박근혜", "다스는누구겁니까?"]
     for (const i of mb) {
         if (text.includes(i)) {
