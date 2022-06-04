@@ -38,7 +38,7 @@ export function check(text: string | any): boolean {
     text = text.replace(/ㅗd/gi, 'ㅗ')
     text = text.replace(/gㅗ/gi, 'ㅗ')
     text = text.replace(/ㅗg/gi, 'ㅗ')
-    let fuckyou = ['ㅗ', '┻', '┴', '┹', '_ㅣ_', '_l_', '_/_', '⊥', '_ |\_', '_|\_', '_ㅣ\_', '_I_']
+    let fuckyou = ['ㅗㅗ','ㅗ', '┻', '┴', '┹', '_ㅣ_', '_l_', '_/_', '⊥', '_ |\_', '_|\_', '_ㅣ\_', '_I_']
     for (const i of fuckyou) {
         if (text.includes(i)) {
             return true;
