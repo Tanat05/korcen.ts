@@ -2,6 +2,17 @@ export function belittle(text: string | any): boolean {
     if (!text) throw new Error('Korean: 확인할 텍스트를 입력해 주세요');
     if (typeof text !== 'string') throw new Error('Korcen: String 타입만 입력 가능합니다');
     const newtext = text.toLowerCase()
+    
+    text = newtext.replace(/뇬/gi, '련')
+    text = text.replace(/놈/gi, '련')
+    text = text.replace(/넘/gi, '련')
+    const belittling2 = ["10련"]
+    for (const i of belittling2) {
+        if (text.includes(i)) {
+            return true;
+        }
+    }
+    
     text = newtext.replace(/련/gi, '년')
     text = text.replace(/뇬/gi, '년')
     text = text.replace(/놈/gi, '년')
