@@ -1,9 +1,25 @@
 export function check(text: string | any): boolean {
     if (!text) throw new Error('Korean: 확인할 텍스트를 입력해 주세요');
     if (typeof text !== 'string') throw new Error('Korean: String 타입만 입력 가능합니다');
-    const newtext = text.toLowerCase()
-    text = newtext.replace(/ /gi, '')
-    text = text.replace(/[^ㄱ-힣]/gi, '')
+    text = text.toLowerCase()
+    text = text.replace(/ /gi, '')
+    text = text.replace(/𝗌/gi, 's')
+    text = text.replace(/𝘴/gi, 's')
+    text = text.replace(/𝙨/gi, 's')
+    text = text.replace(/𝚜/gi, 's')
+    text = text.replace(/𝑠/gi, 's')
+    text = text.replace(/𝒔/gi, 's')
+    text = text.replace(/𝓈/gi, 's')
+    text = text.replace(/𝓼/gi, 's')
+    text = text.replace(/𝔰/gi, 's')
+    text = text.replace(/𝖘/gi, 's')
+    text = text.replace(/𝕤/gi, 's')
+    text = text.replace(/ｓ/gi, 's')
+    const newtext = text.replace(/ç/gi, 'c')
+
+
+
+    text = newtext.replace(/[^ㄱ-힣]/gi, '')
     text = text.replace(/ㅗ먹어/gi, 'ㅗ')
     text = text.replace(/오ㅗㅗ/gi, 'ㅗ')
     text = text.replace(/오ㅗ/gi, 'ㅗ')
@@ -38,13 +54,35 @@ export function check(text: string | any): boolean {
     text = text.replace(/ㅗd/gi, 'ㅗ')
     text = text.replace(/gㅗ/gi, 'ㅗ')
     text = text.replace(/ㅗg/gi, 'ㅗ')
-    let fuckyou = ['ㅗㅗ','ㅗ', '┻', '┴', '┹', '_ㅣ_', '_l_', '_/_', '⊥', '_ |\_', '_|\_', '_ㅣ\_', '_I_']
+    let fuckyou = ["ㅗ", "┻", "┴", "┹", "_ㅣ_", "_l_",
+    "_/_", "⊥", "_ |\_", "_|\_", "_ㅣ\_", "_I_", "丄"]
     for (const i of fuckyou) {
         if (text.includes(i)) {
             return true;
         }
     }
 
+    let fuck = ["tq", "qt"]
+    for (const i of fuck) {
+        if (text.includes(i)) {
+            return true;
+        }
+    }
+    text = text.replace(/118/gi, '')
+    text = text.replace(/218/gi, '')
+    text = text.replace(/318/gi, '')
+    text = text.replace(/418/gi, '')
+    text = text.replace(/518/gi, '')
+    text = text.replace(/618/gi, '')
+    text = text.replace(/718/gi, '')
+    text = text.replace(/818/gi, '')
+    text = text.replace(/918/gi, '')
+    text = text.replace(/018/gi, '')
+    fuck = ["씨8", "18아", "18놈", "18련","tㅂ", "t발", "ㅅㅍ", "ㅆㅍ", "18뇬",
+            "sibal", "sival", "sibar", "sibak", "sipal", "siqk", "tlbal", "tlval", "tlbar", "tlbak", "tlpal", "tlqk",
+            "시bal", "시val", "시bar", "시bak", "시pal", "시qk", "시bal", "시val", "시bar", "시bak", "시pal", "시qk",
+            "si바", "si발", "si불", "si빨", "si팔", "tl바", "tl발", "tl불", "tl빨","tl팔",
+            "siba", "tlba", "siva", "tlva", "tlqkf", "10발련", "10발넘", "10발놈", "10발년", "tlqkd", "si8"]
     text = newtext.replace(/\^/gi, 'ㅅ')
     text = text.replace(/人/gi, 'ㅅ')
     text = text.replace(/丨/gi, 'ㅣ')
@@ -52,19 +90,16 @@ export function check(text: string | any): boolean {
     text = text.replace(/卜/gi, 'ㅏ')
     text = text.replace(/1/gi, 'ㅣ')
     text = text.replace(/l/gi, 'ㅣ')
-    text = text.replace(/bal/gi, '발')
-    text = text.replace(/bar/gi, '발')
     text = text.replace(/r/gi, 'ㅏ')
     text = text.replace(/ᐲ/gi, 'ㅅ')
     text = text.replace(/ᗨ/gi, 'ㅂ')
-    text = text.replace(/si/gi, '시')
-    text = text.replace(/tl/gi, '시')
-    text = text.replace(/qkf/gi, '발')
-    text = text.replace(/qk/gi, '바')
-    text = text.replace(/피시방/gi, '')
-    text = text.replace(/피씨방/gi, '')
+    text = text.replace(/시ㅣ/gi, '시')
+    text = text.replace(/씨ㅣ/gi, '씨')
+    text = text.replace(/ㅅ1/gi, 'ㅅ')
     text = text.replace(/[^ㄱ-힣]/gi, '')
-    let fuck = ["18놈", "ㅅㅍ", "시ㅂ", "시ㅏㄹ", "씨ㅂ","씨방", "씨ㅏㄹ", "ㅣ발", "ㅆ발", "ㅅㅣㅂㅏ", "ㅆㅣ발", "ㅅ발", "ㅅㅂ", "ㅆㅂ", "ㅆ바", "tlbal", "ㅅ바", "시ㅂㅏ", "ㅅㅂㅏ", "시ㅏㄹ", "ㅅㅟ발", "씨ㅏㄹ", "ㅅ불", "ㅆ불", "ㅅ쁠", "ㅆ뿔", "tlba", "씨8", "tlbak", "tlpal", "tlbar", "sipal", "tlval", "시bal", "시bar", "시bak", "시pal", "시qk", "시val", "si바", "si발", "si불", "si빨", "si팔", "tl바", "tl발", "tl불", "tl빨", "tl팔", "10발련", "10발넘", "10발놈", "10발년", "ㅅ ㅣ akwkksw바알", "tlqkd", "샤빨", "18련", "쌰뺠", "si8", "스벌", "개존맛", "t발", "TQ", "tq", "rotoRl", "개좇돼", "18뇬", "시방", "tlqkf", "sibak", "w같은", "신발련", "뷰우웅신", "좇", "^^ㅣ벌", "^^벌", "씨벌", "18아", "tㅂ", "siba", "tq", "qt", "ㅆㅍ", "Ribal", "Libal"]
+    fuck = ["시ㅂ", "시ㅏㄹ", "씨ㅂ", "씨ㅏㄹ", "ㅣ발", "ㅆ발", "ㅅ발", "ㅅㅂ", "ㅆㅂ", "ㅆ바", "ㅅ바",
+                "시ㅂㅏ", "ㅅㅂㅏ", "시ㅏㄹ", "씨ㅏㄹ", "ㅅ불", "ㅆ불", "ㅅ쁠", "ㅆ뿔", "ㅆㅣ발", "ㅅㅟ발", "ㅅㅣㅂㅏ",
+                "ㅣ바알", "ㅅ벌", "^^ㅣ벌"]
     for (const i of fuck) {
         if (text.includes(i)) {
             return true;
@@ -100,18 +135,25 @@ export function check(text: string | any): boolean {
     text = text.replace(/시바라스시/gi, '')
     text = text.replace(/젤리/gi, '')
     text = text.replace(/발사/gi, '')
-    text = text.replace(/크시/gi, '')
     text = text.replace(/크시야/gi, '')
+    text = text.replace(/크시/gi, '')
     text = text.replace(/어찌/gi, '')
     text = text.replace(/발로란트/gi, '')
     text = text.replace(/무시발언/gi, '')
+    text = text.replace(/일시불/gi, '')
+    text = text.replace(/우리/gi, '')
     text = text.replace(/의/gi, '')
+    text = text.replace(/아조씨/gi, '')
+    text = text.replace(/바로/gi, '')
+    text = text.replace(/저거시/gi, '')
+    text = text.replace(/우리발/gi, '')
     fuck = ["시발", "씨발", "시봘", "씨봘", "씨바", "시바", "샤발", "씌발", "씹발", "시벌", "시팔", "싯팔",
-    "씨빨", "씨랼", "씨파", "띠발", "띡발", "띸발","싸발", "십발", "슈발","야발", "씨불", "씨랄",
-    "쉬발", "쓰발", "쓔발", "쌰발", "쉬발", "쒸발", "씨팔", "씨밝", "씨밯", "쑤발", "치발", "샤발",
-    "발씨", "리발", "씨볼","찌발", "씨비바라랄", "시바랄", "씨바라","쒸팔","쉬팔","씨밮","쒸밮","시밮",
-    "씨삐라","ㅆ삐라","씨벌","슈벌","시불","시부렝","씨부렝","시부랭","씨부랭","시부랭","발놈시","뛰발",
-    "뛰봘","뜨발","뜨벌","띄발","씨바알","샤빨","샤발","스벌","쓰벌","신발련","신발년","신발놈","띠발","띠바랄"]
+            "씨빨", "씨랼", "씨파", "띠발", "띡발", "띸발", "싸발", "십발", "슈발", "야발", "씨불", "씨랄",
+            "쉬발", "쓰발", "쓔발", "쌰발", "쉬발", "쒸발", "씨팔", "씨밝", "씨밯", "쑤발", "치발", "샤발",
+            "발씨", "리발", "씨볼", "찌발", "씨비바라랄", "시바랄", "씨바라", "쒸팔", "쉬팔", "씨밮", "쒸밮", "시밮",
+            "씨삐라", "ㅆ삐라", "씨벌", "슈벌", "시불", "시부렝", "씨부렝", "시부랭", "씨부랭", "시부랭", "발놈시", "뛰발",
+            "뛰봘", "뜨발", "뜨벌", "띄발", "씨바알", "샤빨", "샤발", "스벌", "쓰벌", "신발련", "신발년", "신발놈", "띠발",
+            "띠바랄", "시방", "씨방"]
     for (const i of fuck) {
         if (text.includes(i)) {
             return true;
@@ -122,13 +164,19 @@ export function check(text: string | any): boolean {
     text = text.replace(/뇬/gi, '놈')
     text = text.replace(/놈/gi, '놈')
     text = text.replace(/넘/gi, '놈')
-    const bullshit3 = ["18것", "18놈", "18럼", "18롬", "18새끼", "18세끼", "18세리", "18섹", "18쉑", "10쉑"]
+    const bullshit3 = ["18것", "18놈", "18럼", "18롬", "18새끼", "18세끼","18세리", "18섹", "18쉑", "10쉑"]
     for (const i of bullshit3) {
         if (text.includes(i)) {
             return true;
         }
     }
 
+    const bullshit = ["wlfkf", "g랄", "g럴", "g롤", "g뢀"]
+    for (const i of bullshit) {
+        if (newtext.includes(i)) {
+            return true;
+        }
+    }
     text = newtext.replace(/[^ㄱ-힣]/gi, '')
     text = text.replace(/근/gi, 'ㄹ')
     text = text.replace(/있지/gi, '')
@@ -136,7 +184,7 @@ export function check(text: string | any): boolean {
     text = text.replace(/하지/gi, '')
     text = text.replace(/근/gi, 'ㄹ')
     text = text.replace(/ㄹㅇ/gi, '')
-    const bullshit1 = ["ㅈㄹ", "지ㄹ", "ㅈ랄", "ㅈ라","wlfkf","g랄", "g럴", "g롤","g뢀"]
+    const bullshit1 = ["ㅈㄹ", "지ㄹ", "ㅈ랄", "ㅈ라"]
     for (const i of bullshit1) {
         if (text.includes(i)) {
             return true;
@@ -146,6 +194,9 @@ export function check(text: string | any): boolean {
     text = text.replace(/지랄탄/gi, '')
     text = text.replace(/지랄버릇/gi, '')
     text = text.replace(/이/gi, '')
+    text = text.replace(/알았지/gi, '')
+    text = text.replace(/몰랐지/gi, '')
+    text = text.replace(/근데/gi, '')
     const bullshit2 = ["지랄", "찌랄", "지럴", "지롤", "랄지","쥐랄","쮜랄","지뢀","띄랄"]
     for (const i of bullshit2) {
         if (text.includes(i)) {
@@ -181,7 +232,6 @@ export function check(text: string | any): boolean {
     }
 
     text = newtext.replace(/[^가-힣]/gi, '')
-    text = newtext.replace(/"[ㅂㅁㅋㅈㄴㅌㄷㅇㅊㄱㄹㅍㅅㅎㅃㅉㄸㄲㅆㅠㅛㅗㅜㅕㅓㅡㅑㅏㅐㅣㅔㄺㄼㄽㅃㅉㄸㄲㅆㅀㄿㄾㅘㅚㅟㅝㅞㅢㅙ]/gi, '')
     text = text.replace(/전염병/gi, '')
     text = text.replace(/감염병/gi, '')
     const motherfucker = ["염병", "엠병", "옘병", "염병", "얨병"]
@@ -199,12 +249,13 @@ export function check(text: string | any): boolean {
     text = text.replace(/내꺼져/gi, '')
     text = text.replace(/제꺼져/gi, '')
     text = text.replace(/꺼져있/gi, '')
+    text = text.replace(/꺼져도/gi, '')
     if (text.includes("꺼져")) {
         return true;
     }
 
     text = newtext.replace(/[^가-힣]/gi, '')
-    const shit = ["엿같", "엿가튼", "엿먹어"]
+    const shit = ["엿같", "엿가튼", "엿먹어", "뭣같은"]
     for (const i of shit) {
         if (text.includes(i)) {
             return true;
@@ -226,7 +277,7 @@ export function check(text: string | any): boolean {
     text = text.replace(/10새/gi, '새끼')
     text = text.replace(/10쉑/gi, '새끼')
     text = text.replace(/[^가-힣]/gi, '')
-    const sonofbitch = ["ㅅㄲ", "ㅅ끼", "ㅆ끼", "쎆","색ㄲㅣ","ㅍ", "쌖", "쌔꺄", "새꺄", "씹색"]
+    const sonofbitch = ["ㅅㄲ", "ㅅ끼", "ㅆ끼", "색ㄲㅣ"]
     for (const i of sonofbitch) {
         if (text.includes(i)) {
             return true;
@@ -242,20 +293,38 @@ export function check(text: string | any): boolean {
     text = text.replace(/세끼먹/gi, '')
     text = text.replace(/고양이새끼/gi, '')
     text = text.replace(/키보드/gi, '')
-    const sonofbitch2 = ["새끼", "쉐리", "쌔끼", "썌끼", "쎼끼", "쌬끼", "샠끼","세끼","샊","쌖","섺","쎆","십새","새키","씹색","새까","새꺄",
-    "새뀌","새끠","새캬","색꺄","색끼"]
+    const sonofbitch2 = ["새끼", "쉐리", "쌔끼", "썌끼", "쎼끼", "쌬끼", "샠끼", "세끼", "샊", "쌖", "섺", "쎆", "십새", "새키", "씹색", "새까", "새꺄",
+    "새뀌", "새끠", "새캬", "색꺄", "색끼"]
     for (const i of sonofbitch2) {
         if (text.includes(i)) {
             return true;
         }
     }
 
+    const dick = ["w같은"]
+    for (const i of dick) {
+        if (newtext.includes(i)) {
+            return true;
+        }
+    }
     text = newtext.replace(/[^ㄱ-힣]/gi, '')
     text = text.replace(/줫습니다/gi, '')
     text = text.replace(/쫒아/gi, '')
     text = text.replace(/쫒다/gi, '')
-    const dick = ["ㅈ같", "ㅈ망", "ㅈ까", "ㅈ경","ㅈ가튼"]
-    for (const i of dick) {
+    text = text.replace(/쫒는/gi, '')
+    text = text.replace(/쫒기다/gi, '')
+    text = text.replace(/쫒기는/gi, '')
+    text = text.replace(/쫒기나/gi, '')
+    text = text.replace(/쫒기로/gi, '')
+    text = text.replace(/쫒기며/gi, '')
+    text = text.replace(/쫒았/gi, '')
+    text = text.replace(/줫는/gi, '')
+    text = text.replace(/줫어/gi, '')
+    text = text.replace(/줬는/gi, '')
+    text = text.replace(/줬다/gi, '')
+    text = text.replace(/줬어/gi, '')
+    const dick1 = ["ㅈ같", "ㅈ망", "ㅈ까", "ㅈ경","ㅈ가튼"]
+    for (const i of dick1) {
         if (text.includes(i)) {
             return true;
         }
@@ -271,6 +340,14 @@ export function check(text: string | any): boolean {
     text = newtext.replace(/[^가-힣]/gi, '')
     const damn = ["썅", "씨앙", "씨양"]
     for (const i of damn) {
+        if (text.includes(i)) {
+            return true;
+        }
+    }
+
+    text = newtext.replace(/[^가-힣]/gi, '')
+    const swear = ["tq", "qt"]
+    for (const i of swear) {
         if (text.includes(i)) {
             return true;
         }
@@ -309,6 +386,9 @@ export function check(text: string | any): boolean {
     }
 
     text = newtext.replace(/[^가-힣]/gi, '')
+    text = text.replace(/있게/gi, '')
+    text = text.replace(/년생/gi, '')
+    text = text.replace(/떠돌이개/gi, '')
     const sonofagun = ["개같", "개가튼", "개쉑", "개스키", "개세끼", "개색히", "개가뇬", "개새기", "개쌔기", "개쌔끼", "쌖", "쎆", "새긔", "개소리", "개년", "개소리",
     "개드립","개돼지","개씹창","개간나","개스끼","개섹기","개자식","개때꺄","개때끼","개발남아","개샛끼","개가든","개가뜬","개가턴","개가툰","개가튼",
     "개갇은","개갈보","개걸레","개너마","개너므","개넌","개넘","개녀나","개년","개노마","개노무새끼","개논","개놈","개뇨나","개뇬","개뇸","개뇽","개눔",
@@ -359,6 +439,7 @@ export function check(text: string | any): boolean {
     text = newtext.replace(/[^ㄱ-힣]/gi, '')
     text = text.replace(/그만 졸라/gi, '')
     text = text.replace(/졸라서/gi, '')
+    text = text.replace(/졸라맨/gi, '')
     const picking2 = ["ㅈㄴ","ㅈ나","존ㄴ","존맛","존나","존내","쫀나","존네","졸라"]
     for (const i of picking2) {
         if (text.includes(i)) {
@@ -374,6 +455,12 @@ export function check(text: string | any): boolean {
         }
     }
 
+    const pussy = ["ⓑⓞⓩⓘ", "bozi", "보ㅈㅣ"]
+    for (const i of pussy) {
+        if (newtext.includes(i)) {
+            return true;
+        }
+    }
     text = newtext.replace(/[^ㄱ-힣]/gi, '')
     text = text.replace(/보g/gi, "보지")
     text = text.replace(/보지도못/gi, '')
@@ -407,18 +494,26 @@ export function check(text: string | any): boolean {
     text = text.replace(/정보/gi, '')
     text = text.replace(/지팡이/gi, '')
     text = text.replace(/행보/gi, '')
+    text = text.replace(/바보지/gi, '')
+    text = text.replace(/인가보지/gi, '')
     text = text.replace(/오/gi, '')
-    const pussy = ["보지","버지물","버짓물","보짓","ⓑⓞⓩⓘ","bozi","개보즤","개보지","버지벌렁벌렁","보짖","뵤즤"]
-    for (const i of pussy) {
+    const pussy1 = ["보지", "버지물", "버짓물", "보짓", "ⓑⓞⓩⓘ",
+    "bozi", "개보즤", "개보지", "버지벌렁벌렁", "보짖", "뵤즤", "봊이"]
+    for (const i of pussy1) {
         if (text.includes(i)) {
             return true;
         }
     }
 
-
+    const dicks = ["ja지"]
+    for (const i of dicks) {
+        if (text.includes(i)) {
+            return true;
+        }
+    }
     text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    const onahole = ["ㅈㅈ빨", "자ㅈ", "ㅈ지빨"]
-    for (const i of onahole) {
+    const onahole1 = ["ㅈㅈ빨", "자ㅈ", "ㅈ지빨"]
+    for (const i of onahole1) {
         if (text.includes(i)) {
             return true;
         }
@@ -445,23 +540,29 @@ export function check(text: string | any): boolean {
     text = text.replace(/부자지/gi, '')
     text = text.replace(/자지도마/gi, '')
     text = text.replace(/자지는않/gi, '')
+    text = text.replace(/혜자지/gi, '')
     text = text.replace(/아/gi, '')
-    const dicks = ["자지","자짓"]
-    for (const i of dicks) {
+    const dicks1 = ["자지","자짓","잦이"]
+    for (const i of dicks1) {
         if (text.includes(i)) {
             return true;
         }
     }
 
-
+    text = newtext.replace(/cess/gi, '')
+    text = text.replace(/exit/gi, '')
+    const sex = ["sex", "s스", "x스", "se스", "se스", "s스", "ㅅㅅ", "s하고e싶다x", "ㅅㅔㅅㄱ"]
+    for (const i of sex) {
+        if (text.includes(i)) {
+            return true;
+        }
+    }
     text = newtext.replace(/\^/gi, 'ㅅ')
     text = text.replace(/sex/gi, '섹스')
     text = text.replace(/엑/gi, '')
-    text = text.replace(/cess/gi, '')
-    text = text.replace(/exit/gi, '')
     text = text.replace(/[^ㄱ-힣]/gi, '')
-    const sex = ["sex","s스", "x스", "se스", "se스", "s스","ㅅㅅ","s하고e싶다x","ㅅㅔㅅㄱ","ㅅㅔㄱ스", "섹ㅅ", "ㅅ스", "세ㄱㅅ", "ㅅㅔㄱㅅ", "야플"]
-    for (const i of sex) {
+    const sex1 = ["ㅅㅔㄱ스", "섹ㅅ", "ㅅ스", "세ㄱㅅ", "ㅅㅔㄱㅅ"]
+    for (const i of sex1) {
         if (text.includes(i)) {
             return true;
         }
@@ -473,9 +574,25 @@ export function check(text: string | any): boolean {
     text = text.replace(/스파이/gi, '')
     text = text.replace(/말이야/gi, '')
     text = text.replace(/스티브/gi, '')
+    text = text.replace(/스쿼드/gi, '')
     const sex2 = ["섹스", "섻", "쉑스", "섿스", "섹그", "야스", "색스", "셱스", "섁스", "세엑스", "썩스","섹수","섹파","섹하자","쉐스","쉑스","쉐엑스","색수","세엑수우","섹하고",
     "섹하구","섹하자","섹하장","섹하쟈","섹한번"]
     for (const i of sex2) {
+        if (text.includes(i)) {
+            return true;
+        }
+    }
+
+    const dick3 = ["꼬3", "꼬툭튀", "꼬톡튀"]
+    for (const i of dick3) {
+        if (text.includes(i)) {
+            return true;
+        }
+    }
+
+    text = newtext.replace(/[^가-힣]/gi, '')
+    const sex3 = ["씹하다"]
+    for (const i of sex3) {
         if (text.includes(i)) {
             return true;
         }
@@ -499,7 +616,7 @@ export function check(text: string | any): boolean {
 
 
     text = newtext.replace(/[^가-힣]/gi, '')
-    const onahole3 = ["매춘부","씹하다","매춘부","성노예"]
+    const onahole3 = ["매춘부","성노예"]
     for (const i of onahole3) {
         if (text.includes(i)) {
             return true;
@@ -522,12 +639,7 @@ export function check(text: string | any): boolean {
         }
     }
 
-    text = newtext.replace(/련/gi, '년')
-    text = text.replace(/뇬/gi, '년')
-    text = text.replace(/놈/gi, '년')
-    text = text.replace(/러운지/gi, '')
-    text = text.replace(/려운지/gi, '년')
-    text = text.replace(/[^가-힣]/gi, '')
+    text = newtext.replace(/[^가-힣]/gi, '')
     const belittling = ["딸딸이","질싸","안에사정","자위남","자위녀","폰섹","포르노","폰세엑","폰쉑","폰쎅","질내사정","그룹섹","남창","男色","누워라이년아",
     "누웠냐씨방새","다리벌려","대주까","대줄년","뒤로너어줘","딸따뤼","딸쳐","떡쳐라","막대쑤셔줘","막대핥아줘","먹고보니내딸","먹고보니누나","먹고보니딸",
     "먹고보니똥개","먹고보니엄마","먹고보니응아","먹고보니재수","먹고보니처제","먹고보니형수","몸뚱이줄께","몸안에사정","밖에다쌀께","박고빼고",
@@ -610,6 +722,12 @@ export function check(text: string | any): boolean {
         }
     }
 
+    const wtf = ["wtf"]
+    for (const i of wtf) {
+        if (text.includes(i)) {
+            return true;
+        }
+    }
     text = newtext.replace(/[^a-z]/gi, '')
     const foreign = ['2 girls 1 cup', '2g1c', '4r5e', '5h1t', '5hit', 'a$$hole', 'a_s_s', 'a55hole', 'acrotomophilia', 'ahole', 'alabama hot pocket'
     ,'alaskan pipeline', 'anal', 'anal impaler', 'anal leakage', 'analprobe', 'anilingus', 'apeshit', 'ar5e', 'arrse', 'arse', 'arsehole', 'ass fuck'
@@ -819,37 +937,7 @@ export function check(text: string | any): boolean {
         }
     }
 
-    text = newtext.replace(/[^a-z]/gi, '')
-    if (text.includes(("fuck"))) {
-        return true;
-    }
-
-    text = newtext.replace(/[^a-z]/gi, '')
-    if (text.includes("commin")) {
-        return true;
-    }
-
-    text = newtext.replace(/[^a-z]/gi, '')
-    if (text.includes("knod")) {
-        return true;
-    }
-
-    text = newtext.replace(/[^a-z]/gi, '')
-    if (text.includes("cunt")) {
-        return true;
-    }
-
-    text = newtext.replace(/[^a-z]/gi, '')
-    if (text.includes("dotard")) {
-        return true;
-    }
-
-    text = newtext.replace(/[^a-z]/gi, '')
-    if (text.includes("dyke")) {
-        return true;
-    }
-
-    const emoji = ["🖕🏻", "👌🏻👈🏻", "👉🏻👌🏻", "🤏🏻", "🖕", "🖕🏼", "🖕🏽", "🖕🏾", "🖕🏿"]
+    const emoji = ["🖕🏻", "👌🏻👈🏻", "👉🏻👌🏻", "🤏🏻", "🖕", "🖕🏼", "🖕🏽", "🖕🏾", "🖕🏿",":middle_finger:"]
     for (const i of emoji) {
         if (text.includes(i)) {
             return true;
