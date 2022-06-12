@@ -4,7 +4,7 @@ export function foreign(text: string | any): boolean {
     const newtext = text.toLowerCase()
 
 
-    onst wtf = ["wtf"]
+    const wtf = ["wtf"]
     for (const i of wtf) {
         if (text.includes(i)) {
             return true;
