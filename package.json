@@ -1,7 +1,7 @@
 {
     "name": "korcen",
     "description": "한국어 비속어 검열",
-    "version": "0.1.7",
+    "version": "0.1.9",
     "main": "dist/index.js",
     "license" : "GNU General Public License v3.0",
     "scripts": {
