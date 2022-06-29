@@ -3,23 +3,28 @@
   
   [![PyPI version](https://img.shields.io/pypi/v/korcen.svg?style=flat-square)](https://python.org/pypi/korcen)
   [![downloads](https://img.shields.io/pypi/dm/korcen.svg?style=flat-square)](https://pypi.org/project/korcen/)
-  [![NPM version](http://img.shields.io/npm/v/korcen.svg?style=flat-square)](https://www.npmjs.org/package/npm-expansions)
-  [![downloads](http://img.shields.io/npm/dm/korcen.svg?style=flat-square)](https://www.npmjs.org/package/npm-expansions)
+  [![NPM version](http://img.shields.io/npm/v/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
+  [![downloads](http://img.shields.io/npm/dm/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
 </div>
 
 ![131_20220604170616](https://user-images.githubusercontent.com/85154556/171998341-9a7439c8-122f-4a9f-beb6-0e0b3aad05ed.png)
 
-korean(한국어) censorship(검열)의 줄임말로 
+<div align="center">
+  <h2>
+    <a href="https://github.com/Tanat05/korcen">EN</a>
+    <a href="https://github.com/Tanat05/korcen/blob/main/readme/KR.md">KR</a>
+    <a href="https://github.com/Tanat05/korcen/blob/main/readme/JP.md">JP</a>
+    <a href="https://github.com/Tanat05/korcen/blob/main/readme/CH.md">CH</a>
+  </h2>
+</div>
 
-누구나 쉽게 텍스트에 비속어가 있는지 확인이 가능합니다.
+korcen is korean + censorship 
 
-[서포트 디스코드](https://discord.gg/wyTU3ZQBPE)
+Anyone can easily check if there are Korean slang words
 
-## Licenses
+Although Korean slang is the main module, you can collect modules of other users to censor slang in other languages
 
-GNU General Public License v3.0
-
-![image](https://user-images.githubusercontent.com/85154556/171647408-fb2d26c8-509b-4c7d-be93-9290b309e65d.png)
+[support discord](https://discord.gg/wyTU3ZQBPE)
 
 ## Installation
 >PyPI
@@ -32,11 +37,9 @@ $ pip install korcen
 $ npm i korcen
 ```
 # Example
-모든 예시는 가장 최신버전의 모듈을 사용합니다.
+All examples use the latest version
 
-비속어가 있다면 True 없다면 False 출력하는 예시입니다.
-
->PyPI
+>Python
 ```py
 from korcen import korcen
 
@@ -46,38 +49,65 @@ text = input()
 print(korcen.check(text))
 ```
 
->NPM
+>Javascript
 ```js
 const { check } = require('korcen')
-var content = check("문자열")
+var content = check("content")
 console.log(content)
 ```
 
-#### 자세한 예시들은 [example](https://github.com/Tanat05/korcen/tree/main/example) 파일 참고하세요.
+####  See the sample file for a detailed [example](https://github.com/Tanat05/korcen/tree/main/example)
+
+# Modules
+
+We are looking for censorship modules in different languages
+
+The developer of the censorship module, please contact us
+
+>PyPI
+
+KR : Self-produced
+
+EN : [better_profanity](https://github.com/snguyenthanh/better_profanity)
+
+JP : Looking for
+
+CH : Looking for
+
+>NPM
+
+KR : Self-produced
+
+EN : Looking for
+
+JP : Looking for
+
+CH : Looking for
 
 # Maker
 
 
 >Tanat
 ```
-메인 개발자
+PyPI 0.0.1 ~
+NPM 0.0.1~
 
 github:   Tanat05
 discord:  Tanat#0206
 email:    shrbwjd05@gmail.com
 ```
+
+
 >이루
 ```
-PY→JS 작업 도움
-NPM 0.1.0 이후 버전 업데이트 제공
+NPM 0.1.0~ 
 
 github:   erukim
 discord:  이루#6410
 ```
 >kiss
 ```
-JS→TS 변환과 깃허브 설정
-https://github.com/Tanat05/korcen.ts
+JS→TS
 
 github:   kiss8981
 discord:  kisss#4755
