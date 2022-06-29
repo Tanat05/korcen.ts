@@ -494,6 +494,10 @@ export function check(text: string | any): boolean {
     text = text.replace(/정보/gi, '')
     text = text.replace(/지팡이/gi, '')
     text = text.replace(/행보/gi, '')
+    text = text.replace(/생각해보지/gi, '')
+    text = text.replace(/생각안해보지/gi, '')
+    text = text.replace(/뭘해보지/gi, '')
+    text = text.replace(/해보지/gi, '')
     text = text.replace(/바보지/gi, '')
     text = text.replace(/인가보지/gi, '')
     text = text.replace(/오/gi, '')
@@ -833,7 +837,7 @@ export function check(text: string | any): boolean {
     , 'tranny', 'tribadism', 'tub girl', 'tubgirl', 'turd', 'tush', 'tushy', 'tw4t', 'twat', 'twathead', 'twatlips', 'twats', 'twatty', 'twatwaffle'
     , 'two fingers', 'two fingers with tongue', 'two girls one cup', 'twunt', 'twunter', 'unclefucker', 'undies', 'undressing', 'upskirt', 'urethra play'
     , 'urophilia', 'v14gra', 'v1gra', 'vagina', 'vajayjay', 'va-j-j', 'venus mound', 'veqtable', 'violet wand', 'vixen', 'vjayjay', 'vorarephilia'
-    , 'vulva', 'wang', 'wank', 'wanker', 'wankjob', 'wanky', 'wazoo', 'wet dream', 'wetback', 'wh0re', 'wh0reface', 'whoar', 'whore', 'whorealicious'
+    , 'vulva', 'wang', 'wank', 'wanker', 'wankjob', 'wanky', 'wazoo', 'wet dream', 'wetback', 'wh0re', 'wh0reface', 'whore', 'whorealicious'
     , 'whorebag', 'whored', 'whoreface', 'whorehopper', 'whorehouse', 'whores', 'whoring', 'wigger', 'window licker', 'wrinkled starfish', 'yaoi'
     , 'yeasty', 'yellow showers', 'yiffy', 'yobbo', 'zibbi', 'zoophilia', 'zubb']
     for (const i of foreign) {
