@@ -3,7 +3,7 @@
     "description": "한국어 비속어 검열",
     "version": "0.2.0",
     "main": "dist/index.js",
-    "license" : "GNU General Public License v3.0",
+    "license" : "Apache License 2.0",
     "scripts": {
         "build": "rm -rf dist && rollup -c && tsc",
         "prepack": "yarn build",
