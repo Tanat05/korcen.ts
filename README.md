@@ -40,7 +40,7 @@ var content = check("content")
 console.log(content)
 ```
 
-####  See the sample file for a detailed [example](https://github.com/Tanat05/korcen/tree/main/example)
+####  See the sample file for a detailed [example](https://github.com/KR-korcen/korcen.ts/tree/stable/example)
 
 # Modules
 
