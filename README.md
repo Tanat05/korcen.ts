@@ -64,7 +64,7 @@ CH : Looking for
 NPM 0.0.1~
 
 github:   Tanat05
-discord:  Tanat#0206
+discord:  Tanat#1533
 email:    shrbwjd05@gmail.com
 ```
 
