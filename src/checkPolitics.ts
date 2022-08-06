@@ -28,7 +28,7 @@ export function politics(text: string | any): boolean {
     }
 
     text = newtext.replace(/[^가-힣]/gi, '')
-    const jh = ["반인반신", "데미갓", "박정희"]
+    const jh = ["반인반신", "박정희"]
     for (const i of jh) {
         if (text.includes(i)) {
             return true;
