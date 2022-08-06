@@ -50,7 +50,7 @@ export function sexual(text: string | any): boolean {
     text = text.replace(/인가보지/gi, '')
     text = text.replace(/오/gi, '')
     const pussy1 = ["보지", "버지물", "버짓물", "보짓", "ⓑⓞⓩⓘ",
-    "bozi", "개보즤", "개보지", "버지벌렁벌렁", "보짖", "뵤즤", "봊이"]
+        "bozi", "개보즤", "개보지", "버지벌렁벌렁", "보짖", "뵤즤", "봊이"]
     for (const i of pussy1) {
         if (text.includes(i)) {
             return true;
@@ -94,7 +94,7 @@ export function sexual(text: string | any): boolean {
     text = text.replace(/자지는않/gi, '')
     text = text.replace(/혜자지/gi, '')
     text = text.replace(/아/gi, '')
-    const dicks1 = ["자지","자짓","잦이"]
+    const dicks1 = ["자지", "자짓", "잦이"]
     for (const i of dicks1) {
         if (text.includes(i)) {
             return true;
@@ -127,8 +127,17 @@ export function sexual(text: string | any): boolean {
     text = text.replace(/말이야/gi, '')
     text = text.replace(/스티브/gi, '')
     text = text.replace(/스쿼드/gi, '')
-    const sex2 = ["섹스", "섻", "쉑스", "섿스", "섹그", "야스", "색스", "셱스", "섁스", "세엑스", "썩스","섹수","섹파","섹하자","쉐스","쉑스","쉐엑스","색수","세엑수우","섹하고",
-    "섹하구","섹하자","섹하장","섹하쟈","섹한번"]
+    text = text.replace(/스탑/gi, '')
+    text = text.replace(/스틸/gi, '')
+    text = text.replace(/스킬/gi, '')
+    text = text.replace(/스포티파이/gi, '')
+    text = text.replace(/스토리/gi, '')
+    text = text.replace(/스파게티/gi, '')
+    text = text.replace(/스릴러/gi, '')
+    text = text.replace(/스시/gi, '')
+    text = text.replace(/스레기/gi, '')
+    const sex2 = ["섹스", "섻", "쉑스", "섿스", "섹그", "야스", "색스", "셱스", "섁스", "세엑스", "썩스", "섹수", "섹파", "섹하자", "쉐스", "쉑스", "쉐엑스", "색수", "세엑수우", "섹하고",
+        "섹하구", "섹하자", "섹하장", "섹하쟈", "섹한번"]
     for (const i of sex2) {
         if (text.includes(i)) {
             return true;
@@ -151,7 +160,7 @@ export function sexual(text: string | any): boolean {
     }
 
     text = newtext.replace(/[^가-힣]/gi, '')
-    const fireegg = ["불알", "부랄", "뽕알", "뿅알", "뿌랄", "뿔알","개부달","개부랄","개부러럴","개부럴","개부뢀","개부알","개불알","똘추","똥구멍"]
+    const fireegg = ["불알", "부랄", "뽕알", "뿅알", "뿌랄", "뿔알", "개부달", "개부랄", "개부러럴", "개부럴", "개부뢀", "개부알", "개불알", "똘추", "똥구멍"]
     for (const i of fireegg) {
         if (text.includes(i)) {
             return true;
@@ -159,7 +168,7 @@ export function sexual(text: string | any): boolean {
     }
 
     text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    const onahole2 = ["오나홍", "오나홀", "ㅇㄴ홀","텐가","바이브레이터","오ㄴ홀","ㅇ나홀"]
+    const onahole2 = ["오나홍", "오나홀", "ㅇㄴ홀", "텐가", "바이브레이터", "오ㄴ홀", "ㅇ나홀"]
     for (const i of onahole2) {
         if (text.includes(i)) {
             return true;
@@ -168,7 +177,7 @@ export function sexual(text: string | any): boolean {
 
 
     text = newtext.replace(/[^가-힣]/gi, '')
-    const onahole3 = ["매춘부","성노예"]
+    const onahole3 = ["매춘부", "성노예"]
     for (const i of onahole3) {
         if (text.includes(i)) {
             return true;
@@ -184,7 +193,7 @@ export function sexual(text: string | any): boolean {
     }
 
     text = newtext.replace(/[^가-힣]/gi, '')
-    const onahole5 = ["모유물","로리물","근친상간","룸섹스","원조교재","속박플레이","야플","야외플레이"]
+    const onahole5 = ["모유물", "로리물", "근친상간", "룸섹스", "원조교재", "속박플레이", "야플", "야외플레이"]
     for (const i of onahole5) {
         if (text.includes(i)) {
             return true;
@@ -192,10 +201,10 @@ export function sexual(text: string | any): boolean {
     }
 
     text = newtext.replace(/[^가-힣]/gi, '')
-    const belittling = ["딸딸이","질싸","안에사정","자위남","자위녀","폰섹","포르노","폰세엑","폰쉑","폰쎅","질내사정","그룹섹","남창","男色","누워라이년아",
-    "누웠냐씨방새","다리벌려","대주까","대줄년","뒤로너어줘","딸따뤼","딸쳐","떡쳐라","막대쑤셔줘","막대핥아줘","먹고보니내딸","먹고보니누나","먹고보니딸",
-    "먹고보니똥개","먹고보니엄마","먹고보니응아","먹고보니재수","먹고보니처제","먹고보니형수","몸뚱이줄께","몸안에사정","밖에다쌀께","박고빼고",
-    "배위에싸죠","g스팟","지스팟","크리토리스","클리토리스","페니스","애널","젖까","젖가튼","젖나","젖만","ja위","자위","고자새끼","고츄","꺼추","께세","꼬추"]
+    const belittling = ["딸딸이", "질싸", "안에사정", "자위남", "자위녀", "폰섹", "포르노", "폰세엑", "폰쉑", "폰쎅", "질내사정", "그룹섹", "남창", "男色", "누워라이년아",
+        "누웠냐씨방새", "다리벌려", "대주까", "대줄년", "뒤로너어줘", "딸따뤼", "딸쳐", "떡쳐라", "막대쑤셔줘", "막대핥아줘", "먹고보니내딸", "먹고보니누나", "먹고보니딸",
+        "먹고보니똥개", "먹고보니엄마", "먹고보니응아", "먹고보니재수", "먹고보니처제", "먹고보니형수", "몸뚱이줄께", "몸안에사정", "밖에다쌀께", "박고빼고",
+        "배위에싸죠", "g스팟", "지스팟", "크리토리스", "클리토리스", "페니스", "애널", "젖까", "젖가튼", "젖나", "젖만", "ja위", "자위", "고자새끼", "고츄", "꺼추", "께세", "꼬추"]
     for (const i of belittling) {
         if (text.includes(i)) {
             return true;
