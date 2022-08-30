@@ -318,7 +318,7 @@ export function general(text: string | any): boolean {
         }
     }
     text = newtext.replace(/[^가-힣]/gi, '')
-    const dick2 = ["좆", "촟", "조까", "좈", "쫒", "졷", "좃", "좋같", "좃같", "좃물", "좃밥", "줫", "좋밥", "좋물", "좇"]
+    const dick2 = ["좆", "촟", "조까", "좈", "쫒", "졷", "좃", "좋같", "좃같", "좃물", "좃밥", "줫", "좋밥", "좋물", "좇", "丕 刀卜己卜人丨廿卜己卜口卜"]
     for (const i of dick2) {
         if (text.includes(i)) {
             return true;
