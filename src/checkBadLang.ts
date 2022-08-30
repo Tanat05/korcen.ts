@@ -183,25 +183,18 @@ export function check(text: string | any): boolean {
             return true;
         }
     }
-    // text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    text = text.replace(/있지/gi, '')
-    text = text.replace(/없지/gi, '')
-    text = text.replace(/하지/gi, '')
-    text = text.replace(/ㄹㅇ/gi, '')
-    const bullshit1 = ["ㅈㄹ", "지ㄹ", "ㅈ랄", "ㅈ라"]
-    for (const i of bullshit1) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-    text = newtext.replace(/[^가-힣]/gi, 'ㄹ')
+    text = newtext.replace(/[^가-힣]/gi, '')
     text = text.replace(/지랄탄/gi, '')
     text = text.replace(/지랄버릇/gi, '')
     text = text.replace(/이/gi, '')
     text = text.replace(/알았지/gi, '')
     text = text.replace(/몰랐지/gi, '')
+    text = text.replace(/있지/gi, '')
+    text = text.replace(/없지/gi, '')
+    text = text.replace(/하지/gi, '')
+    text = text.replace(/ㄹㅇ/gi, '')
     text = text.replace(/근데/gi, '')
-    const bullshit2 = ["지랄", "찌랄", "지럴", "지롤", "랄지", "쥐랄", "쮜랄", "지뢀", "띄랄"]
+    const bullshit2 = ["지랄", "찌랄", "지럴", "지롤", "랄지", "쥐랄", "쮜랄", "지뢀", "띄랄","ㅈㄹ", "지ㄹ", "ㅈ랄", "ㅈ라"]
     for (const i of bullshit2) {
         if (text.includes(i)) {
             return true;
