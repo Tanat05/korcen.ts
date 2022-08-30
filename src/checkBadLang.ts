@@ -49,6 +49,12 @@ export function check(text: string | any): boolean {
     text = text.replace(/qㅗ/gi, 'ㅗ')
     text = text.replace(/ㅗq/gi, 'ㅗ')
     text = text.replace(/wㅗ/gi, 'ㅗ')
+    text = text.replace(/ㅗㅜ/gi, '')
+    text = text.replace(/ㅜㅗ/gi, '')
+    text = text.replace(/오ㅗ/gi, '')
+    text = text.replace(/ㅗ오/gi, '')
+    text = text.replace(/요ㅗ/gi, '')
+    text = text.replace(/ㅗ요/gi, '')
     text = text.replace(/ㅗw/gi, 'ㅗ')
     text = text.replace(/dㅗ/gi, 'ㅗ')
     text = text.replace(/ㅗd/gi, 'ㅗ')
@@ -177,12 +183,10 @@ export function check(text: string | any): boolean {
             return true;
         }
     }
-    text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    text = text.replace(/근/gi, 'ㄹ')
+    text = newtext.replace(/[^ㄱ-힣]/gi, 
     text = text.replace(/있지/gi, '')
     text = text.replace(/없지/gi, '')
     text = text.replace(/하지/gi, '')
-    text = text.replace(/근/gi, 'ㄹ')
     text = text.replace(/ㄹㅇ/gi, '')
     const bullshit1 = ["ㅈㄹ", "지ㄹ", "ㅈ랄", "ㅈ라"]
     for (const i of bullshit1) {
