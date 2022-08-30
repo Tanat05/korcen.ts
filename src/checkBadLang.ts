@@ -183,7 +183,7 @@ export function check(text: string | any): boolean {
             return true;
         }
     }
-    text = newtext.replace(/[^ㄱ-힣]/gi, 
+    text = newtext.replace(/[^ㄱ-힣]/gi, '')
     text = text.replace(/있지/gi, '')
     text = text.replace(/없지/gi, '')
     text = text.replace(/하지/gi, '')
