@@ -55,12 +55,28 @@ CH : 직접
 
 >Tanat
 ```
-PyPI 0.0.1 ~
-NPM 0.0.1~
+NPM 0.0.1~0.1.7
 
 github:   Tanat05
 discord:  Tanat#1533
 email:    shrbwjd05@gmail.com
+```
+
+
+>이루
+```
+NPM 0.1.0~ 
+
+github:   erukim
+discord:  이루#6410
+```
+
+>kiss
+```
+JS→TS
+
+github:   kiss8981
+discord:  kisss#4755
 ```
 
 
