@@ -9,10 +9,8 @@
 
 <div align="center">
   <h2>
-    <a href="https://github.com/Tanat05/korcen">EN</a>
+    <a href="https://github.com/Tanat05/korcen.ts">EN</a>
     <a href="https://github.com/Tanat05/korcen/blob/main/readme/KR.md">KR</a>
-    <a href="https://github.com/Tanat05/korcen/blob/main/readme/JP.md">JP</a>
-    <a href="https://github.com/Tanat05/korcen/blob/main/readme/CH.md">CH</a>
   </h2>
 </div>
 
@@ -21,6 +19,8 @@ korcen is korean + censorship
 Anyone can easily check if there are Korean slang words
 
 Although Korean slang is the main module, you can collect modules of other users to censor slang in other languages
+
+[py version](https://github.com/KR-korcen/korcen)
 
 [support discord](https://discord.gg/wyTU3ZQBPE)
 
@@ -76,6 +76,7 @@ NPM 0.1.0~
 github:   erukim
 discord:  이루#6410
 ```
+
 >kiss
 ```
 JS→TS
