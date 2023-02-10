@@ -61,7 +61,7 @@ CH : Looking for
 
 >Tanat
 ```
-NPM 0.0.1~
+NPM 0.0.1~0.1.7
 
 github:   Tanat05
 discord:  Tanat#1533
