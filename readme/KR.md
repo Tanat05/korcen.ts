@@ -1,8 +1,5 @@
 <div align="center">
   <h1>korcen(코르센)</h1>
-  
-  [![PyPI version](https://img.shields.io/pypi/v/korcen.svg?style=flat-square)](https://python.org/pypi/korcen)
-  [![downloads](https://img.shields.io/pypi/dm/korcen.svg?style=flat-square)](https://pypi.org/project/korcen/)
   [![NPM version](http://img.shields.io/npm/v/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
   [![downloads](http://img.shields.io/npm/dm/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
 </div>
@@ -22,7 +19,7 @@ Korcen은 korean(한국어) censorship(검열)의 줄임말입니다
 
 한국 비속어가 주이지만 다양한 언어를 지원합니다
 
-[TS 버전 바로가기](https://github.com/KR-korcen/korcen.ts)
+[PY 버전 바로가기](https://github.com/KR-korcen/korcen)
 
 [서포트 디스코드](https://discord.gg/wyTU3ZQBPE)
 
@@ -39,12 +36,11 @@ $ npm i korcen
 # Example
 버전에 따라 달라질 수 있습니다 
 
->Python
-```py
-from korcen import korcen
-
-text = input()
-print(korcen.check(text))
+>js
+```js
+const { check } = require('korcen')
+var content = check("content")
+console.log(content)
 ```
 
 # Modules
