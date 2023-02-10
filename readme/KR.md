@@ -25,10 +25,6 @@ Korcen은 korean(한국어) censorship(검열)의 줄임말입니다
 [서포트 디스코드](https://discord.gg/wyTU3ZQBPE)
 
 ## Installation
->PyPI
-```sh
-$ pip install korcen
-```
 
 >NPM
 ```sh
