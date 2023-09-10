@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>korcen(코르센)</h1>
+  <h1>korcen.ts</h1>
   
   [![NPM version](http://img.shields.io/npm/v/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
   [![downloads](http://img.shields.io/npm/dm/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
