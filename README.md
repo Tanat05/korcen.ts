@@ -61,7 +61,7 @@ CH : Looking for
 
 >Tanat
 ```
-NPM 0.0.1~0.1.7
+NPM 0.0.1 ~ 0.1.7
 
 github:   Tanat05
 discord:  Tanat#1533
@@ -71,7 +71,7 @@ email:    shrbwjd05@gmail.com
 
 >이루
 ```
-NPM 0.1.0~ 
+NPM 0.1.0 ~ 
 
 github:   erukim
 discord:  이루#6410
