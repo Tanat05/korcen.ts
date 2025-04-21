@@ -1,398 +1,230 @@
+const SINGLE_CHAR_NORMALIZATION_MAP = {
+    '𝗌': 's', '𝘴': 's', '𝙨': 's', '𝚜': 's', '𝐬': 's', '𝑠': 's', '𝒔': 's', '𝓈': 's', '𝓮': 's', '𝔰': 's', '𝖘': 's', '𝕤': 's',
+    'ｓ': 's', 'ş': 's', 'ⓢ': 's', '⒮': 's', '🅢': 's', '🆂': 's', '🅂': 's', '𝑺': 's', 'ſ': 's', 'š': 's', 'ś': 's', 'ŝ': 's',
+    'ṣ': 's', 'ṡ': 's', 'ș': 's', 'ṥ': 's', 'ṧ': 's', 'ṩ': 's', '$': 's', '5': 's',
+
+    '𝖾': 'e', '𝘦': 'e', '𝙚': 'e', '𝚎': 'e', '𝐞': 'e', '𝑒': 'e', '𝒆': 'e', 'ℯ': 'e', '𝓮': 'e', '𝔢': 'e', '𝖊': 'e', '𝕖': 'e',
+    'ｅ': 'e', 'ė': 'e', 'ⓔ': 'e', '⒠': 'e', '🅔': 'e', '🅴': 'e', '🄴': 'e', 'є': 'e', 'ê': 'e', 'ë': 'e', 'é': 'e', 'è': 'e',
+    'ē': 'e', 'ĕ': 'e', 'ě': 'e', 'ę': 'e', 'ẹ': 'e', 'ẻ': 'e', 'ẽ': 'e', 'ế': 'e', 'ề': 'e', 'ệ': 'e', 'ễ': 'e', 'ể': 'e',
+    '3': 'e', '€': 'e',
+
+    '𝗑': 'x', '𝘹': 'x', '𝙭': 'x', '𝚡': 'x', '𝐱': 'x', '𝑥': 'x', '𝒙': 'x', '𝓍': 'x', '𝔁': 'x', '𝔵': 'x', '𝖝': 'x', '𝕩': 'x',
+    'ｘ': 'x', 'ⓧ': 'x', '⒳': 'x', '🅧': 'x', '🆇': 'x', '🅇': 'x', '×': 'x', '✕': 'x', '✖': 'x', '❌': 'x', '⨯': 'x',
+    '⚔': 'x', '*': 'x', '✗': 'x', '✘': 'x',
+
+    'ų': 'u', 'ü': 'u', 'ú': 'u', 'ù': 'u', 'û': 'u', 'ũ': 'u', 'ū': 'u', 'ŭ': 'u', 'ů': 'u', 'ű': 'u', 'ụ': 'u', 'ư': 'u',
+    'ç': 'c', 'ć': 'c', 'ĉ': 'c', 'č': 'c', 'ċ': 'c', '¢': 'c', '©': 'c', 'ḉ': 'c', '(': 'c', '<': 'c',
+    'Ｆ': 'F', 'Ḟ': 'F', 'Ƒ': 'F', 'ℱ': 'F', 'Ꞙ': 'F', 'Ꝼ': 'F',
+    'Ｋ': 'K', 'Ḱ': 'K', 'Ǩ': 'K', 'Ḳ': 'K', 'Ḵ': 'K', 'Ⱪ': 'K', 'Ꝁ': 'K',
+    'Ｃ': 'C', 'Ć': 'C', 'Ĉ': 'C', 'Č': 'C', 'Ċ': 'C', 'Ç': 'C', 'Ḉ': 'C',
+    'Ｕ': 'U', 'Ú': 'U', 'Ù': 'U', 'Û': 'U', 'Ũ': 'U', 'Ū': 'U', 'Ŭ': 'U', 'Ů': 'U', 'Ű': 'U', 'Ụ': 'U',
+
+    'ㅗ': 'ㅗ', '┻': 'ㅗ', '┴': 'ㅗ', '┹': 'ㅗ', '⊥': 'ㅗ', '†': 'ㅗ', '⟂': 'ㅗ', '╨': 'ㅗ', '╧': 'ㅗ', '╥': 'ㅗ',
+    '^': 'ㅅ', '人': 'ㅅ', '∧': 'ㅅ', '㉦': 'ㅅ', 'ᐲ': 'ㅅ', 'Λ': 'ㅅ', '⩘': 'ㅅ', '⋀': 'ㅅ', '⩚': 'ㅅ',
+    '甘': 'ㅂ', '廿': 'ㅂ', 'ᗨ': 'ㅂ', 'ᗐ': 'ㅂ', 'ᗕ': 'ㅂ', '田': 'ㅂ', '口': 'ㅂ', '日': 'ㅂ', '目': 'ㅂ', '囗': 'ㅂ',
+    '己': 'ㄹ', '乙': 'ㄹ', '已': 'ㄹ', '巳': 'ㄹ', '匚': 'ㄷ',
+    '卜': 'ㅏ', 'r': 'ㅏ', 'F': 'ㅏ', '丨': 'ㅏ', '|': 'ㅏ', 'ㅣ': 'ㅏ', '/': 'ㅏ', '⼃': 'ㅏ', '⼁': 'ㅏ', '⼂': 'ㅏ',
+    'l': 'ㅣ', '1': 'ㅣ', 'I': 'ㅣ', '!': 'ㅣ', '¦': 'ㅣ', '｜': 'ㅣ', '￤': 'ㅣ', 'І': 'ㅣ', 'Ӏ': 'ㅣ',
+    'H': 'ㅐ', 'ㅖ': 'ㅐ', 'ㅒ': 'ㅐ', 'Н': 'ㅐ', 'Ⲏ': 'ㅐ', 'ℍ': 'ㅐ',
+    '🐦': '새', '🐔': '새', '🦅': '새', '🦉': '새', '🦆': '새', '🦜': '새', '🦤': '새', '🦢': '새', '🕊': '새',
+    '🐕': '개', '🐶': '개', '🐺': '개',
+    '丕': '조', '朝': '조', '則': '조', '兆': '조', '組': '조', '早': '조', '鳥': '조', '潮': '조', '照': '조',
+    '0': 'ㅇ', 'O': 'ㅇ', 'o': 'ㅇ', '◯': 'ㅇ', '⭕': 'ㅇ', '○': 'ㅇ', '●': 'ㅇ', '◎': 'ㅇ', '◉': 'ㅇ', '◌': 'ㅇ',
+
+    'a': 'a', '@': 'a', '4': 'a', 'α': 'a', 'ä': 'a', 'å': 'a', 'ã': 'a', 'ā': 'a', 'ȧ': 'a', 'ǎ': 'a',
+    'b': 'b', '8': 'b', '6': 'b', 'ƃ': 'b', 'ɓ': 'b', 'Ƅ': 'b', 'ℬ': 'b', 'ᖯ': 'b', 'ᑲ': 'b',
+    'd': 'd', 'ḋ': 'd', 'ḍ': 'd', 'ᑯ': 'd', 'ᗞ': 'd', 'ᗪ': 'd', 'ᖙ': 'd', 'ⅆ': 'd', 'ɗ': 'd',
+    'f': 'f', 'ƒ': 'f', 'ḟ': 'f', 'ſ': 'f', 'ⅎ': 'f', 'ᶂ': 'f', 'ꜰ': 'f', 'ꟻ': 'f',
+    'g': 'g', '9': 'g', 'ǥ': 'g', 'ɡ': 'g', 'ġ': 'g', 'ģ': 'g', 'ĝ': 'g', 'ǧ': 'g',
+    'h': 'h', 'ĥ': 'h', 'ħ': 'h', 'ƕ': 'h', 'ḥ': 'h', 'ḫ': 'h', 'ⱨ': 'h', 'ꜧ': 'h',
+    'i': 'i', '1': 'i', '!': 'i', '|': 'i', 'ī': 'i', 'ĭ': 'i', 'ǐ': 'i', 'į': 'i',
+    'j': 'j', 'ĵ': 'j', 'ǰ': 'j', 'ȷ': 'j', 'ɉ': 'j', 'ⱼ': 'j', 'ʝ': 'j', 'ɟ': 'j',
+    'k': 'k', 'ķ': 'k', 'ƙ': 'k', 'ǩ': 'k', 'ḱ': 'k', 'ḳ': 'k', 'ḵ': 'k', 'ⱪ': 'k',
+    'l': 'l', '1': 'l', '|': 'l', 'ĺ': 'l', 'ļ': 'l', 'ľ': 'l', 'ŀ': 'l', 'ł': 'l',
+    'm': 'm', 'ɱ': 'm', 'ḿ': 'm', 'ṁ': 'm', 'ṃ': 'm', 'ⱥ': 'm', 'ᵯ': 'm', 'ᴍ': 'm',
+    'n': 'n', 'ń': 'n', 'ň': 'n', 'ñ': 'n', 'ņ': 'n', 'ṅ': 'n', 'ṇ': 'n', 'ṉ': 'n',
+    'p': 'p', 'ṕ': 'p', 'ṗ': 'p', 'ƥ': 'p', 'ᵽ': 'p', 'ᵱ': 'p', 'ᴘ': 'p', 'ᑭ': 'p',
+    'q': 'q', '9': 'q', 'ʠ': 'q', 'ɋ': 'q', 'ȹ': 'q', 'ⱊ': 'q', 'ⱍ': 'q', 'ꝗ': 'q',
+    'r': 'r', 'ŕ': 'r', 'ř': 'r', 'ŗ': 'r', 'ṙ': 'r', 'ṛ': 'r', 'ṝ': 'r', 'ṟ': 'r',
+    't': 't', '7': 't', '+': 't', 'ť': 't', 'ţ': 't', 'ŧ': 't', 'ț': 't', 'ṫ': 't',
+    'v': 'v', 'ṿ': 'v', 'ⱴ': 'v', 'ᵥ': 'v', 'ᵛ': 'v', '√': 'v', 'ᐱ': 'v', '∨': 'v',
+    'w': 'w', 'ẁ': 'w', 'ẃ': 'w', 'ẅ': 'w', 'ŵ': 'w', 'ẇ': 'w', 'ẉ': 'w', 'ⱳ': 'w',
+    'y': 'y', 'ý': 'y', 'ỳ': 'y', 'ŷ': 'y', 'ÿ': 'y', 'ȳ': 'y', 'ẏ': 'y', 'ỵ': 'y',
+    'z': 'z', '2': 'z', 'ź': 'z', 'ẑ': 'z', 'ž': 'z', 'ż': 'z', 'ẓ': 'z', 'ẕ': 'z',
+};
+
+const MULTI_CHAR_REPLACEMENTS = {
+    '_ㅣ_': 'ㅗ', '_/_': 'ㅗ', '_ |\_': 'ㅗ', '_|\_': 'ㅗ', '_ㅣ\_': 'ㅗ', '_I_': 'ㅗ',
+    '／＼': 'ㅅ', '/＼': 'ㅅ',
+    '77': 'ㄲ',
+    '刀卜': '까',
+    '₨': 'rs',
+    'ㅇl=스': '섹스',
+    'ㅇㅣ-ㅣ': '애',
+    'lㅣ': '니',
+    'ㅁㅣ': '미',
+    '丕刀卜己卜人丨廿卜己卜口卜': '조까씹쌔끼',
+};
+
+const FALSE_POSITIVE_PATTERNS_GENERAL = [
+    'ㅗ먹어', '오ㅗ', '해ㅗ', '호ㅗ', '로ㅗ', '옹ㅗ', '롤ㅗ', '요ㅗ', '우ㅗ', '하ㅗ',
+    'ㅗ오', 'ㅗ호', 'ㅗ로', 'ㅗ옹', 'ㅗ롤', 'ㅗ요', 'ㅗ우', 'ㅗ하',
+    'ㅗㅗ오', 'ㅗㅗ호', 'ㅗㅗ로', 'ㅗㅗ옹', 'ㅗㅗ롤', 'ㅗㅗ요', 'ㅗㅗ우', 'ㅗㅗ하',
+    '오ㅗㅗㅗ', '호ㅗㅗㅗ', '로ㅗㅗㅗ', '옹ㅗㅗㅗ', '롤ㅗㅗㅗ', '요ㅗㅗㅗ', '우ㅗㅗㅗ', '하ㅗㅗㅗ',
+    '오ㅗㅗㅗㅗ', '호ㅗㅗㅗㅗ', '로ㅗㅗㅗㅗ', '옹ㅗㅗㅗㅗ', '롤ㅗㅗㅗㅗ', '요ㅗㅗㅗㅗ', '우ㅗㅗㅗㅗ', '하ㅗㅗㅗㅗ',
+    'ㅇㅗ', 'ㅗㄷ', 'ㅗㅜ', 'rㅗ', 'ㅗr', 'sㅗ', 'ㅗs', 'eㅗ', 'ㅗe', 'fㅗ', 'ㅗf', 'aㅗ', 'ㅗa',
+    'qㅗ', 'ㅗq', 'ㅗw', 'wㅗ', 'ㅗd', 'dㅗ', 'ㅗg', 'gㅗ',
+    '118', '218', '318', '418', '518', '618', '718', '818', '918', '018',
+    '8분', '8시', '8시발',
+    '발닦', '동시8', '다시방', '시불이익', '다시바꿀', '다시바꿔', '다시불러', '다시불안',
+    '하시바라이노스케', '할시', '시발음', '시발택시', '시발자동차', '정치발', '시발점', '시발유',
+    '시발역', '시발수뢰', '아저씨바', '아저씨발', '시바견', '벌어', '시바이누', '시바스리갈',
+    '시바산', '시바신', '오리발', '발끝', '다시바', '다시팔', '비슈누시바', '시바핫카이',
+    '시바타이쥬', '데스티니시바', '시바루', '시바료타로', '시바라스시', '임시방편', '젤리',
+    '발사', '크시야', '크시', '어찌', '가시방석', '발로란트방', '발로란트', '발로', '씨발라',
+    '무시발언', '일시불', '우리', '혹시', '아조씨', '아저씨', '바로', '저거시', '우리발',
+    '피시방', '피씨방', '방장', '시바사키', '시발차', '구로역시발', '로벅스', '쉬바나', '벌었는데',
+    '엠씨방', '빨리', '파엠', '벌금', '시방향', '불법', '발릴', '발표', '방송', '역시', '바보',
+    '쿨리발리', '슈발리에', '방탄', '방어', '발표', '상시',
+    'opgg',
+    '있지', '없지', '하지', '알았지', '몰랐지', '근데', '지근거', '지근하', '지근지근', '지근속근',
+    '속든지근', '미지근', '지랄탄', '지랄버릇',
+    '0등신', '1등신', '2등신', '3등신', '4등신', '5등신', '6등신', '7등신', '8등신', '9등신',
+    '붕우유신',
+    '전염병', '감염병', '화염병',
+    '왜꺼져', '꺼져요', '이꺼져', '꺼져서', '내꺼져', '제꺼져', '꺼져있', '꺼져잇', '꺼져도',
+    '계속꺼져', '꺼져가',
+    '새로', '의새끼', '루세끼', '시세끼', '세끼먹', '고양이새끼', '호랑이새끼', '용새끼', '말새끼',
+    '사자새끼', '범새끼', '삵새끼', '키보드', '새끼손', '셰리프', '로쉐리',
+    '0개', '1개', '2개', '3개', '4개', '5개', '6개', '7개', '8개', '9개',
+    '1년', '2년', '3년', '4년', '5년', '6년', '7년', '8년', '9년',
+    '재밌게놈', '있게', '년생', '무지개색', '떠돌이개', '에게', '넘는', '소개', '생긴게', '날개같다',
+    '줫습니다', '줫음', '줫잖아', '줫겠지', '쫒아', '쫒는', '쫒기다', '쫒기라', '쫒기로',
+    '쫒기를', '쫒기며', '쫒기는', '쫒기나', '쫒겨', '쫒겻', '쫒겼', '쫒았', '쫒다', '쫒고',
+    '줫는', '줫어', '줬는', '줫군', '줬다', '줬어', '천조', '쫒기', '해줫더니', '줫다', '내쫒은',
+    '내쫒다', '좇아',
+    'ㅡ'
+];
+
+const GENERAL_PROFANITY_PATTERNS = [
+    'ㅗ', '씨8', '18아', '18놈', 'tㅂ', 't발', 'ㅆㅍ', 'sibal', 'sival', 'sibar', 'sibak', 'sipal',
+    'siqk', 'tlbal', 'tlval', 'tlbar', 'tlbak', 'tlpal', 'tlqk', '시발', '시val', '시bar',
+    '시bak', '시pal', '시qk', 'si바', 'si발', 'si불', 'si빨', 'si팔', 'tl바', 'tl발', 'tl불', 'tl빨', 'tl팔',
+    'siba', 'tlba', 'siva', 'tlva', 'tlqkf', '10발놈', '10발년', 'tlqkd', 'si8', '10r놈', '시8', '십8',
+    's1bal', 'sib알', '씨x', 'siㅂ', '丨발', '丨벌', '丨바', 'ㅅ1', '시ㅣ', '씨ㅣ', '8시발',
+    'ㅆ발', 'ㅅ발', 'ㅅㅂ', 'ㅆㅂ', 'ㅆ바', 'ㅅ바', '시ㅂㅏ', 'ㅅㅂㅏ', '시ㅏㄹ', '씨ㅏㄹ',
+    'ㅅ불', 'ㅆ불', 'ㅅ쁠', 'ㅆ뿔', 'ㅆㅣ발', 'ㅅㅟ발', 'ㅅㅣㅂㅏ', 'ㅣ바알', 'ㅅ벌', '^^ㅣ벌',
+    'ㅆ삐라', '씨ㅃ', '^^/발', '시봘', '씨봘', '씨바', '시바', '샤발', '씌발', '씹발', '시벌',
+    '시팔', '싯팔', '씨빨', '씨랼', '씨파', '띠발', '띡발', '띸발', '싸발', '십발', '슈발',
+    '야발', '씨불', '씨랄', '쉬발', '쓰발', '쓔발', '쌰발', '쒸발', '씨팔', '씨밝',
+    '씨밯', '쑤발', '치발', '발씨', '리발', '씨볼', '찌발', '씨비바라랄', '시바랄',
+    '씨바라', '쒸팔', '쉬팔', '씨밮', '쒸밮', '시밮', '씨삐라', '씨벌', '슈벌', '시불',
+    '시부렝', '씨부렝', '시부랭', '씨부랭', '발놈시', '뛰발', '뛰봘', '뜨발', '뜨벌',
+    '띄발', '씨바알', '샤빨', '스벌', '쓰벌', '신발련', '신발년', '신발놈', '띠바랄', '시방',
+    '씨방', '씨부련', '시부련', '씨잇발', '씨잇파알', '씨잇바알', '시잇발', '시잇바알', '쒸이발',
+    '쉬이빨', '씹팔', '쉬바', '시병발신', '씱빩', '쉬바난', '쉬바놈', '쉬바녀', '쉬바년', '쉬바노마', '쉬바새', '쉬불', '쉬이바',
+    '시벨놈', '시뱅놈', '시봉새', '씻뻘', '씌벌',
+    'wlfkf', 'g랄', 'g럴', 'g롤', 'g뢀', 'giral', 'zi랄', 'ji랄', 'ㅈㄹ', '지ㄹ', 'ㅈ랄', 'ㅈ라',
+    '지랄', '찌랄', '지럴', '지롤', '랄지', '쥐랄', '쮜랄', '지뢀', '띄랄',
+    'ㅄ', 'ㅂㅅ', '병ㅅ', 'ㅂ신', 'ㅕㅇ신', 'ㅂㅇ신', '뷰신', '병신', '병딱', '벼신', '붱신',
+    '뼝신', '뿽신', '삥신', '병시니', '병형신', '뵹신', '병긴', '비응신',
+    '염병', '엠병', '옘병', '얨병', '옘뼝',
+    '꺼져',
+    '엿같', '엿가튼', '엿먹어', '뭣같은',
+    'rotorl', 'rotprl', 'sib새', 'ah끼', 'sㅐ끼', 'x끼',
+    'ㅅㄲ', 'ㅅ끼', 'ㅆ끼', '색ㄲㅣ', 'ㅆㅐㄲㅑ', 'ㅆㅐㄲㅣ', '새끼', '쉐리', '쌔끼', '썌끼',
+    '쎼끼', '쌬끼', '샠끼', '세끼', '샊', '쌖', '섺', '쎆', '십새', '새키', '씹색', '새까',
+    '새꺄', '샛끼', '새뀌', '새끠', '새캬', '색꺄', '색끼', '섹히', '셁기', '셁끼', '셐기',
+    '셰끼', '셰리', '쉐꺄', '십색꺄', '십떼끼', '십데꺄', '십때끼', '십새꺄', '십새캬', '쉑히',
+    '씹새기', '고아새기', '샠기', '애새기', '이새기', '느그새기', '장애새기',
+    'w같은', 'ㅈ같', 'ㅈ망', 'ㅈ까', 'ㅈ경', 'ㅈ가튼', '좆', '촟', '조까', '좈', '쫒', '졷',
+    '좃', '줮', '좋같', '좃같', '좃물', '좃밥', '줫', '좋밥', '좋물', '좇', '조까씹쌔끼',
+    '썅', '씨앙', '씨양', '샤앙', '쌰앙',
+    '뻑유', '뻐킹', '뻐큐', '빡큐', '뿩큐', '뻑큐', '빡유', '뻒큐',
+    '닥쳐', '닭쳐', '닥치라', '아가리해',
+    'dog새', '개ㅐ색',
+    '개같', '개가튼', '개쉑', '개스키', '개세끼', '개색히', '개가뇬', '개새기', '개쌔기', '개쌔끼',
+    '쌖', '쎆', '새긔', '개소리', '개년', '개드립', '개돼지', '개씹창', '개간나', '개스끼', '개섹기',
+    '개자식', '개때꺄', '개때끼', '개발남아', '개샛끼', '개가든', '개가뜬', '개가턴', '개가툰',
+    '개갇은', '개갈보', '개걸레', '개너마', '개너므', '개넌', '개넘', '개녀나',
+    '개노마', '개노무새끼', '개논', '개놈', '개뇨나', '개뇬', '개뇸', '개뇽', '개눔', '개느마',
+    '개늠', '개랙기', '개련', '개발남아', '개발뇬', '개색', '개색기',
+    '개색끼', '개샛키', '개샛킹', '개샛히', '개샜끼', '개생키', '개샠', '개샤끼', '개샤킥',
+    '개샥', '개샹늠', '개세리', '개세키', '개섹히', '개섺', '개셃', '개셋키', '개셐',
+    '개셰리', '개솩', '개쇄끼', '개쇅', '개쇅끼', '개쇅키', '개쇗', '개쇠리', '개쉐끼', '개쉐리',
+    '개쉐키', '개쉑갸', '개쉑기', '개쉑꺄', '개쉑끼', '개쉑캬', '개쉑키', '개쉑히',
+    '개쉢', '개쉨', '개쉬끼', '개쉬리', '개쉽', '개습', '개습세', '개습쌔',
+    '개싀기', '개싀끼', '개싀밸', '개싀킈', '개싀키', '개싏', '개싑창', '개싘', '개시끼',
+    '개시퀴', '개시키', '개식기', '개식끼', '개식히', '개십새', '개십팔', '개싯기', '개싯끼',
+    '개싯키', '개싴', '개쌍넘', '개쌍년', '개쌍놈', '개쌍눔', '개쌍늠', '개쌍연', '개쌍영',
+    '개쌔꺄', '개쌕', '개쌕끼', '개쌰깨', '개썅', '개쎄', '개쎅', '개쎼키',
+    '개쐐리', '개쒜', '개쒝', '개쒯', '개쒸', '개쒸빨놈', '개쒹기', '개쓉', '개씀', '개씁',
+    '개씌끼', '개씨끼', '개씨팕', '개씨팔', '개잡것', '개잡년', '개잡놈', '개잡뇬', '개젓',
+    '개젖', '개젗', '개졋', '개조또', '개조옷', '개족', '개좃', '개좆', '개좇',
+    '개지랄', '개지럴', '개창년', '개허러', '개허벌년', '개호러', '개호로', '개후랄', '개후레',
+    '개후로', '개후장', '걔섀끼', '걔잡넘', '걔잡년', '걔잡뇬', '게가튼', '게같은', '게너마',
+    '게년', '게노마', '게놈', '게뇨나', '게뇬', '게뇸', '게뇽', '게눔', '게늠', '게띠발넘',
+    '게부랄', '게부알', '게새끼', '게새리', '게새키', '게색', '게색기', '게색끼', '게샛키',
+    '게세꺄', '게자지', '게잡넘', '게잡년', '게잡뇬', '게젓', '게좆', '계같은뇬', '계뇬',
+    '계뇽', '쉬댕', '쉬뎅', '개생끼'
+];
+
+const allFalsePositivePatterns = [
+    ...FALSE_POSITIVE_PATTERNS_GENERAL
+];
+allFalsePositivePatterns.sort((a, b) => b.length - a.length);
+const ALL_FP_REGEX = new RegExp(allFalsePositivePatterns.map(escapeRegex).join('|'), 'gi');
+
+
+const sortedGeneralProfanityPatterns = [...GENERAL_PROFANITY_PATTERNS];
+sortedGeneralProfanityPatterns.sort((a, b) => b.length - a.length);
+
+
+function escapeRegex(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+const singleCharMapRegex = new RegExp(Object.keys(SINGLE_CHAR_NORMALIZATION_MAP).map(key => escapeRegex(key)).join('|'), 'gi');
+
+const multiCharReplacementRegex = new RegExp(
+    Object.keys(MULTI_CHAR_REPLACEMENTS)
+    .map(escapeRegex)
+    .sort((a, b) => b.length - a.length)
+    .join('|'),
+    'gi'
+);
+
+
 export function general(text: string | any): boolean {
-    if (!text) throw new Error('Korcen: 확인할 텍스트를 입력해 주세요');
-    if (typeof text !== 'string') throw new Error('Korean: String 타입만 입력 가능합니다');
-    const newtext = text.toLowerCase()
-
-    text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    text = text.replace(/ㅗ먹어/gi, 'ㅗ')
-    text = text.replace(/오ㅗㅗ/gi, '')
-    text = text.replace(/오ㅗ/gi, '')
-    text = text.replace(/로ㅗㅗ/gi, '')
-    text = text.replace(/로ㅗ/gi, '')
-    text = text.replace(/호ㅗㅗ/gi, 'ㅗ')
-    text = text.replace(/호ㅗ/gi, 'ㅗ')
-    text = text.replace(/옹ㅗㅗ/gi, 'ㅗ')
-    text = text.replace(/옹ㅗ/gi, 'ㅗ')
-    text = text.replace(/롤ㅗㅗ/gi, 'ㅗ')
-    text = text.replace(/롤ㅗ/gi, 'ㅗ')
-    text = text.replace(/요ㅗ/gi, 'ㅗ')
-    text = text.replace(/하ㅗ/gi, 'ㅗ')
-    text = text.replace(/우ㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅇㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗㅜ/gi, 'ㅗ')
-    text = text.replace(/rㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗr/gi, 'ㅗ')
-    text = text.replace(/sㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗs/gi, 'ㅗ')
-    text = text.replace(/eㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗe/gi, 'ㅗ')
-    text = text.replace(/fㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗf/gi, 'ㅗ')
-    text = text.replace(/aㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗa/gi, 'ㅗ')
-    text = text.replace(/qㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗq/gi, 'ㅗ')
-    text = text.replace(/wㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗw/gi, 'ㅗ')
-    text = text.replace(/dㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗㅜ/gi, '')
-    text = text.replace(/ㅜㅗ/gi, '')
-    text = text.replace(/오ㅗ/gi, '')
-    text = text.replace(/ㅗ오/gi, '')
-    text = text.replace(/요ㅗ/gi, '')
-    text = text.replace(/ㅗ요/gi, '')
-    text = text.replace(/ㅗd/gi, 'ㅗ')
-    text = text.replace(/gㅗ/gi, 'ㅗ')
-    text = text.replace(/ㅗg/gi, 'ㅗ')
-    let fuckyou = ["ㅗ", "┻", "┴", "┹", "_ㅣ_", "_l_",
-        "_/_", "⊥", "_ |\_", "_|\_", "_ㅣ\_", "_I_", "丄"]
-    for (const i of fuckyou) {
-        if (text.includes(i)) {
-            return true;
-        }
+    if (typeof text !== 'string') {
+        if (!text) throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
+        throw new Error('korcen: String 타입만 입력 가능합니다');
+    }
+    if (!text.trim()) {
+        throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
     }
 
-    let fuck = ["tq", "qt"]
-    for (const i of fuck) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-    text = text.replace(/118/gi, '')
-    text = text.replace(/218/gi, '')
-    text = text.replace(/318/gi, '')
-    text = text.replace(/418/gi, '')
-    text = text.replace(/518/gi, '')
-    text = text.replace(/618/gi, '')
-    text = text.replace(/718/gi, '')
-    text = text.replace(/818/gi, '')
-    text = text.replace(/918/gi, '')
-    text = text.replace(/018/gi, '')
-    fuck = ["씨8", "18아", "18놈", "18련", "tㅂ", "t발", "ㅅㅍ", "ㅆㅍ", "18뇬",
-        "sibal", "sival", "sibar", "sibak", "sipal", "siqk", "tlbal", "tlval", "tlbar", "tlbak", "tlpal", "tlqk",
-        "시bal", "시val", "시bar", "시bak", "시pal", "시qk", "시bal", "시val", "시bar", "시bak", "시pal", "시qk",
-        "si바", "si발", "si불", "si빨", "si팔", "tl바", "tl발", "tl불", "tl빨", "tl팔",
-        "siba", "tlba", "siva", "tlva", "tlqkf", "10발련", "10발넘", "10발놈", "10발년", "tlqkd", "si8", "10R", "10r"]
-    text = newtext.replace(/\^/gi, 'ㅅ')
-    text = text.replace(/人/gi, 'ㅅ')
-    text = text.replace(/丨/gi, 'ㅣ')
-    text = text.replace(/甘/gi, 'ㅂ')
-    text = text.replace(/卜/gi, 'ㅏ')
-    text = text.replace(/1/gi, 'ㅣ')
-    text = text.replace(/l/gi, 'ㅣ')
-    text = text.replace(/r/gi, 'ㅏ')
-    text = text.replace(/ᐲ/gi, 'ㅅ')
-    text = text.replace(/ᗨ/gi, 'ㅂ')
-    text = text.replace(/시ㅣ/gi, '시')
-    text = text.replace(/씨ㅣ/gi, '씨')
-    text = text.replace(/ㅅ1/gi, 'ㅅ')
-    text = text.replace(/[^ㄱ-힣]/gi, '')
-    fuck = ["시ㅂ", "시ㅏㄹ", "씨ㅂ", "씨ㅏㄹ", "ㅣ발", "ㅆ발", "ㅅ발", "ㅅㅂ", "ㅆㅂ", "ㅆ바", "ㅅ바",
-        "시ㅂㅏ", "ㅅㅂㅏ", "시ㅏㄹ", "씨ㅏㄹ", "ㅅ불", "ㅆ불", "ㅅ쁠", "ㅆ뿔", "ㅆㅣ발", "ㅅㅟ발", "ㅅㅣㅂㅏ",
-        "ㅣ바알", "ㅅ벌", "^^ㅣ벌"]
-    for (const i of fuck) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-    text = text.replace(/[^가-힣]/gi, '')
-    text = text.replace(/시발택시/gi, '')
-    text = text.replace(/시발자동차/gi, '')
-    text = text.replace(/정치발/gi, '')
-    text = text.replace(/시발점/gi, '')
-    text = text.replace(/시발유/gi, '')
-    text = text.replace(/시발역/gi, '')
-    text = text.replace(/시발수뢰/gi, '')
-    text = text.replace(/아저씨바/gi, '')
-    text = text.replace(/시바견/gi, '')
-    text = text.replace(/시바/gi, '')
-    text = text.replace(/이/gi, '')
-    text = text.replace(/일/gi, '')
-    text = text.replace(/벌어/gi, '')
-    text = text.replace(/시바이누/gi, '')
-    text = text.replace(/시바스리갈/gi, '')
-    text = text.replace(/시바산/gi, '')
-    text = text.replace(/시바신/gi, '')
-    text = text.replace(/오리발/gi, '')
-    text = text.replace(/발끝/gi, '')
-    text = text.replace(/다시바/gi, '')
-    text = text.replace(/비슈누시바/gi, '')
-    text = text.replace(/시바핫카이/gi, '')
-    text = text.replace(/시바타이쥬/gi, '')
-    text = text.replace(/데스티니시바/gi, '')
-    text = text.replace(/시바루/gi, '')
-    text = text.replace(/시바료타로/gi, '')
-    text = text.replace(/시바라스시/gi, '')
-    text = text.replace(/젤리/gi, '')
-    text = text.replace(/발사/gi, '')
-    text = text.replace(/크시야/gi, '')
-    text = text.replace(/크시/gi, '')
-    text = text.replace(/어찌/gi, '')
-    text = text.replace(/발로란트/gi, '')
-    text = text.replace(/무시발언/gi, '')
-    text = text.replace(/일시불/gi, '')
-    text = text.replace(/우리/gi, '')
-    text = text.replace(/의/gi, '')
-    text = text.replace(/아조씨/gi, '')
-    text = text.replace(/바로/gi, '')
-    text = text.replace(/저거시/gi, '')
-    text = text.replace(/우리발/gi, '')
-    fuck = ["시발", "씨발", "시봘", "씨봘", "씨바", "시바", "샤발", "씌발", "씹발", "시벌", "시팔", "싯팔",
-        "씨빨", "씨랼", "씨파", "띠발", "띡발", "띸발", "싸발", "십발", "슈발", "야발", "씨불", "씨랄",
-        "쉬발", "쓰발", "쓔발", "쌰발", "쉬발", "쒸발", "씨팔", "씨밝", "씨밯", "쑤발", "치발", "샤발",
-        "발씨", "리발", "씨볼", "찌발", "씨비바라랄", "시바랄", "씨바라", "쒸팔", "쉬팔", "씨밮", "쒸밮", "시밮",
-        "씨삐라", "ㅆ삐라", "씨벌", "슈벌", "시불", "시부렝", "씨부렝", "시부랭", "씨부랭", "시부랭", "발놈시", "뛰발",
-        "뛰봘", "뜨발", "뜨벌", "띄발", "씨바알", "샤빨", "샤발", "스벌", "쓰벌", "신발련", "신발년", "신발놈", "띠발",
-        "띠바랄", "시방", "씨방"]
-    for (const i of fuck) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
+    let processedText = text.toLowerCase().replace(/ /gi, '');
 
-    text = newtext.replace(/련/gi, '놈')
-    text = text.replace(/뇬/gi, '놈')
-    text = text.replace(/놈/gi, '놈')
-    text = text.replace(/넘/gi, '놈')
-    const bullshit3 = ["18것", "18놈", "18럼", "18롬", "18새끼", "18세끼", "18세리", "18섹", "18쉑", "10쉑"]
-    for (const i of bullshit3) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
+    processedText = processedText.replace(singleCharMapRegex, match => {
+        const lowerMatch = match.toLowerCase();
+        return SINGLE_CHAR_NORMALIZATION_MAP[lowerMatch] || match;
+    });
 
-    const bullshit = ["wlfkf", "g랄", "g럴", "g롤", "g뢀"]
-    for (const i of bullshit) {
-        if (newtext.includes(i)) {
-            return true;
+    processedText = processedText.replace(multiCharReplacementRegex, match => {
+        const lowerMatch = match.toLowerCase();
+        for (const key in MULTI_CHAR_REPLACEMENTS) {
+            if (key.toLowerCase() === lowerMatch) {
+                return MULTI_CHAR_REPLACEMENTS[key];
+            }
         }
-    }
-    text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    text = text.replace(/있지/gi, '')
-    text = text.replace(/없지/gi, '')
-    text = text.replace(/하지/gi, '')
-    text = text.replace(/ㄹㅇ/gi, '')
-    const bullshit1 = ["ㅈㄹ", "지ㄹ", "ㅈ랄", "ㅈ라"]
-    for (const i of bullshit1) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-    text = newtext.replace(/[^가-힣]/gi, 'ㄹ')
-    text = text.replace(/지랄탄/gi, '')
-    text = text.replace(/지랄버릇/gi, '')
-    text = text.replace(/이/gi, '')
-    text = text.replace(/알았지/gi, '')
-    text = text.replace(/몰랐지/gi, '')
-    text = text.replace(/근데/gi, '')
-    const bullshit2 = ["지랄", "찌랄", "지럴", "지롤", "랄지", "쥐랄", "쮜랄", "지뢀", "띄랄"]
-    for (const i of bullshit2) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
+        return match;
+    });
 
-    text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    text = text.replace(/빙/gi, '병')
-    text = text.replace(/븅/gi, '병')
-    text = text.replace(/등/gi, '병')
-    text = text.replace(/붱/gi, '병')
-    text = text.replace(/뵈/gi, '병')
-    text = text.replace(/뼝/gi, '병')
-    text = text.replace(/싄/gi, '신')
-    text = text.replace(/씬/gi, '신')
-    text = text.replace(/우/gi, '')
-    text = text.replace(/웅/gi, '')
-    const asshole = ["ㅄ", "ㅂㅅ", "병ㅅ", "ㅂ신", "ㅕㅇ신", "ㅂㅇ신", "뷰신"]
-    for (const i of asshole) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-    text = newtext.replace(/[^가-힣]/gi, '')
-    text = text.replace(/영/gi, '')
-    text = text.replace(/엉/gi, '')
-    const asshole2 = ["병신", "병딱", "벼신", "붱신", "뼝신", "뿽신", "삥신", "병시니"]
-    for (const i of asshole2) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
+    processedText = processedText.replace(ALL_FP_REGEX, '');
 
-    text = newtext.replace(/[^가-힣]/gi, '')
-    text = text.replace(/전염병/gi, '')
-    text = text.replace(/감염병/gi, '')
-    const motherfucker = ["염병", "엠병", "옘병", "염병", "얨병"]
-    for (const i of motherfucker) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/[^가-힣]/gi, '')
-    text = text.replace(/왜꺼져/gi, '')
-    text = text.replace(/꺼져요/gi, '')
-    text = text.replace(/이꺼져/gi, '')
-    text = text.replace(/꺼져서/gi, '')
-    text = text.replace(/내꺼져/gi, '')
-    text = text.replace(/제꺼져/gi, '')
-    text = text.replace(/꺼져있/gi, '')
-    text = text.replace(/꺼져도/gi, '')
-    if (text.includes("꺼져")) {
-        return true;
-    }
-
-    text = newtext.replace(/[^가-힣]/gi, '')
-    const shit = ["엿같", "엿가튼", "엿먹어", "뭣같은"]
-    for (const i of shit) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-    const shit2 = ["rotorl", "rotprl", "sib새"]
-    for (const i of shit2) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/\^/gi, 'ㅅ')
-    text = text.replace(/H/gi, 'ㅐ')
-    text = text.replace(/10새/gi, '새끼')
-    text = text.replace(/10섹/gi, '새끼')
-    text = text.replace(/10쌔/gi, '새끼')
-    text = text.replace(/10쎄/gi, '새끼')
-    text = text.replace(/10새/gi, '새끼')
-    text = text.replace(/10쉑/gi, '새끼')
-    text = text.replace(/[^가-힣]/gi, '')
-    const sonofbitch = ["ㅅㄲ", "ㅅ끼", "ㅆ끼", "색ㄲㅣ"]
-    for (const i of sonofbitch) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/[^가-힣]/gi, '')
-    text = text.replace(/의새끼/gi, '')
-    text = text.replace(/애/gi, '')
-    text = text.replace(/에/gi, '')
-    text = text.replace(/루세끼/gi, '')
-    text = text.replace(/시세끼/gi, '')
-    text = text.replace(/세끼먹/gi, '')
-    text = text.replace(/고양이새끼/gi, '')
-    text = text.replace(/키보드/gi, '')
-    const sonofbitch2 = ["새끼", "쉐리", "쌔끼", "썌끼", "쎼끼", "쌬끼", "샠끼", "세끼", "샊", "쌖", "섺", "쎆", "십새", "새키", "씹색", "새까", "새꺄",
-        "새뀌", "새끠", "새캬", "색꺄", "색끼"]
-    for (const i of sonofbitch2) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    const dick = ["w같은"]
-    for (const i of dick) {
-        if (newtext.includes(i)) {
-            return true;
-        }
-    }
-    text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    text = text.replace(/줫습니다/gi, '')
-    text = text.replace(/쫒아/gi, '')
-    text = text.replace(/쫒다/gi, '')
-    text = text.replace(/쫒는/gi, '')
-    text = text.replace(/쫒기다/gi, '')
-    text = text.replace(/쫒기는/gi, '')
-    text = text.replace(/쫒기나/gi, '')
-    text = text.replace(/쫒기로/gi, '')
-    text = text.replace(/쫒기며/gi, '')
-    text = text.replace(/쫒았/gi, '')
-    text = text.replace(/줫는/gi, '')
-    text = text.replace(/줫어/gi, '')
-    text = text.replace(/줬는/gi, '')
-    text = text.replace(/줬다/gi, '')
-    text = text.replace(/줬어/gi, '')
-    const dick1 = ["ㅈ같", "ㅈ망", "ㅈ까", "ㅈ경", "ㅈ가튼"]
-    for (const i of dick1) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-    text = newtext.replace(/[^가-힣]/gi, '')
-    const dick2 = ["좆", "촟", "조까", "좈", "쫒", "졷", "좃", "좋같", "좃같", "좃물", "좃밥", "줫", "좋밥", "좋물", "좇", "丕 刀卜己卜人丨廿卜己卜口卜"]
-    for (const i of dick2) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/[^가-힣]/gi, '')
-    const damn = ["썅", "씨앙", "씨양"]
-    for (const i of damn) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/[^가-힣]/gi, '')
-    const swear = ["tq", "qt"]
-    for (const i of swear) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    const whatthefuck = ["뻑유", "뻐킹", "뻐큐", "빡큐", "뿩큐", "뻑큐", "빡유"]
-    for (const i of whatthefuck) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/[^가-힣]/gi, '')
-    const whatthefuck2 = ["닥쳐", "닭쳐", "닥치라", "아가리해"]
-    for (const i of whatthefuck2) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/r[0-9]+/gi, '')
-    const whatthefuck3 = ["dog새"]
-    for (const i of whatthefuck3) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    const whatthefuck4 = ["개ㅐ색"]
-    for (const i of whatthefuck4) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
-
-    text = newtext.replace(/[^가-힣]/gi, '')
-    text = text.replace(/있게/gi, '')
-    text = text.replace(/년생/gi, '')
-    text = text.replace(/떠돌이개/gi, '')
-    const sonofagun = ["개같", "개가튼", "개쉑", "개스키", "개세끼", "개색히", "개가뇬", "개새기", "개쌔기", "개쌔끼", "쌖", "쎆", "새긔", "개소리", "개년", "개소리",
-        "개드립", "개돼지", "개씹창", "개간나", "개스끼", "개섹기", "개자식", "개때꺄", "개때끼", "개발남아", "개샛끼", "개가든", "개가뜬", "개가턴", "개가툰", "개가튼",
-        "개갇은", "개갈보", "개걸레", "개너마", "개너므", "개넌", "개넘", "개녀나", "개년", "개노마", "개노무새끼", "개논", "개놈", "개뇨나", "개뇬", "개뇸", "개뇽", "개눔",
-        "개느마", "개늠", "개때꺄", "개때끼", "개떼끼", "개랙기", "개련", "개발남아", "개발뇬", "개색", "개색끼", "개샊", "개샛끼", "개샛키", "개샛킹", "개샛히", "개샜끼",
-        "개생키", "개샠", "개샤끼", "개샤킥", "개샥", "개샹늠", "개세끼", "개세리", "개세키", "개섹히", "개섺", "개셃", "개셋키", "개셐", "개셰리", "개솩", "개쇄끼", "개쇅",
-        "개쇅끼", "개쇅키", "개쇗", "개쇠리", "개쉐끼", "개쉐리", "개쉐키", "개쉑", "개쉑갸", "개쉑기", "개쉑꺄", "개쉑끼", "개쉑캬", "개쉑키", "개쉑히", "개쉢", "개쉨",
-        "개쉬", "개쉬끼", "개쉬리", "개쉽", "개스끼", "개스키", "개습", "개습세", "개습쌔", "개싀기", "개싀끼", "개싀밸", "개싀킈", "개싀키", "개싏", "개싑창", "개싘",
-        "개시끼", "개시퀴", "개시키", "개식기", "개식끼", "개식히", "개십새", "개십팔", "개싯기", "개싯끼", "개싯키", "개싴", "개쌍넘", "개쌍년", "개쌍놈", "개쌍눔",
-        "개쌍늠", "개쌍연", "개쌍영", "개쌔꺄", "개쌔끼", "개쌕", "개쌕끼", "개쌰깨", "개썅", "개쎄", "개쎅", "개쎼키", "개쐐리", "개쒜", "개쒝", "개쒯", "개쒸", "개쒸빨놈",
-        "개쒹기", "개쓉", "개쒹기", "개쓉", "개씀", "개씁", "개씌끼", "개씨끼", "개씨팕", "개씨팔", "개잡것", "개잡년", "개잡놈", "개잡뇬", "개젓", "개젖", "개젗", "개졋",
-        "개졎", "개조또", "개조옷", "개족", "개좃", "개좆", "개좇", "개지랄", "개지럴", "개창년", "개허러", "개허벌년", "개호러", "개호로", "개후랄", "개후레", "개후로",
-        "개후장", "걔섀끼", "걔잡넘", "걔잡년", "걔잡뇬", "게가튼", "게같은", "게너마", "게넘", "게년", "게노마", "게놈", "게뇨나", "게뇬", "게뇸", "게뇽", "게눔", "게늠",
-        "게띠발넘", "게부랄", "게부알", "게새끼", "게새리", "게새키", "게색", "게색기", "게색끼", "게샛키", "게세꺄", "게자지", "게잡넘", "게잡년", "게잡뇬", "게젓",
-        "게좆", "계같은뇬", "계뇬", "계뇽"]
-    for (const i of sonofagun) {
-        if (text.includes(i)) {
+    for (const pattern of sortedGeneralProfanityPatterns) {
+        if (processedText.includes(pattern.toLowerCase())) {
             return true;
         }
     }
