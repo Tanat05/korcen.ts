@@ -106,7 +106,7 @@ const multiCharReplacementRegex: RegExp = new RegExp(
     'gi'
 );
 
-export function parent(text: string | any): boolean {
+export function parents(text: string | any): boolean {
     if (typeof text !== 'string') {
         if (text === null || text === undefined) {
              throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
