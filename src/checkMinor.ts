@@ -1,50 +1,140 @@
-export function minor(text: string | any): boolean {
-    if (!text) throw new Error('Korcen: 확인할 텍스트를 입력해 주세요');
-    if (typeof text !== 'string') throw new Error('Korean: String 타입만 입력 가능합니다');
-    const newtext = text.toLowerCase()
+const SINGLE_CHAR_NORMALIZATION_MAP = {
+    '𝗌': 's', '𝘴': 's', '𝙨': 's', '𝚜': 's', '𝐬': 's', '𝑠': 's', '𝒔': 's', '𝓈': 's', '𝓮': 's', '𝔰': 's', '𝖘': 's', '𝕤': 's',
+    'ｓ': 's', 'ş': 's', 'ⓢ': 's', '⒮': 's', '🅢': 's', '🆂': 's', '🅂': 's', '𝑺': 's', 'ſ': 's', 'š': 's', 'ś': 's', 'ŝ': 's',
+    'ṣ': 's', 'ṡ': 's', 'ș': 's', 'ṥ': 's', 'ṧ': 's', 'ṩ': 's', '$': 's', '5': 's',
 
-    text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    const damnit = ["ㅁㅊ", "ㅁ친", "ㅁ쳤","aㅣ친","me친","미ㅊ"]
-    for (const i of damnit) {
-        if (text.includes(i)) {
-            return true;
-        }
+    '𝖾': 'e', '𝘦': 'e', '𝙚': 'e', '𝚎': 'e', '𝐞': 'e', '𝑒': 'e', '𝒆': 'e', 'ℯ': 'e', '𝓮': 'e', '𝔢': 'e', '𝖊': 'e', '𝕖': 'e',
+    'ｅ': 'e', 'ė': 'e', 'ⓔ': 'e', '⒠': 'e', '🅔': 'e', '🅴': 'e', '🄴': 'e', 'є': 'e', 'ê': 'e', 'ë': 'e', 'é': 'e', 'è': 'e',
+    'ē': 'e', 'ĕ': 'e', 'ě': 'e', 'ę': 'e', 'ẹ': 'e', 'ẻ': 'e', 'ẽ': 'e', 'ế': 'e', 'ề': 'e', 'ệ': 'e', 'ễ': 'e', 'ể': 'e',
+    '3': 'e', '€': 'e',
+
+    '𝗑': 'x', '𝘹': 'x', '𝙭': 'x', '𝚡': 'x', '𝐱': 'x', '𝑥': 'x', '𝒙': 'x', '𝓍': 'x', '𝔁': 'x', '𝔵': 'x', '𝖝': 'x', '𝕩': 'x',
+    'ｘ': 'x', 'ⓧ': 'x', '⒳': 'x', '🅧': 'x', '🆇': 'x', '🅇': 'x', '×': 'x', '✕': 'x', '✖': 'x', '❌': 'x', '⨯': 'x',
+    '⚔': 'x', '*': 'x', '✗': 'x', '✘': 'x',
+
+    'ų': 'u', 'ü': 'u', 'ú': 'u', 'ù': 'u', 'û': 'u', 'ũ': 'u', 'ū': 'u', 'ŭ': 'u', 'ů': 'u', 'ű': 'u', 'ụ': 'u', 'ư': 'u',
+    'ç': 'c', 'ć': 'c', 'ĉ': 'c', 'č': 'c', 'ċ': 'c', '¢': 'c', '©': 'c', 'ḉ': 'c', '(': 'c', '<': 'c',
+    'Ｆ': 'F', 'Ḟ': 'F', 'Ƒ': 'F', 'ℱ': 'F', 'Ꞙ': 'F', 'Ꝼ': 'F',
+    'Ｋ': 'K', 'Ḱ': 'K', 'Ǩ': 'K', 'Ḳ': 'K', 'Ḵ': 'K', 'Ⱪ': 'K', 'Ꝁ': 'K',
+    'Ｃ': 'C', 'Ć': 'C', 'Ĉ': 'C', 'Č': 'C', 'Ċ': 'C', 'Ç': 'C', 'Ḉ': 'C',
+    'Ｕ': 'U', 'Ú': 'U', 'Ù': 'U', 'Û': 'U', 'Ũ': 'U', 'Ū': 'U', 'Ŭ': 'U', 'Ů': 'U', 'Ű': 'U', 'Ụ': 'U',
+
+    'ㅗ': 'ㅗ', '┻': 'ㅗ', '┴': 'ㅗ', '┹': 'ㅗ', '⊥': 'ㅗ', '†': 'ㅗ', '⟂': 'ㅗ', '╨': 'ㅗ', '╧': 'ㅗ', '╥': 'ㅗ',
+    '^': 'ㅅ', '人': 'ㅅ', '∧': 'ㅅ', '㉦': 'ㅅ', 'ᐲ': 'ㅅ', 'Λ': 'ㅅ', '⩘': 'ㅅ', '⋀': 'ㅅ', '⩚': 'ㅅ',
+    '甘': 'ㅂ', '廿': 'ㅂ', 'ᗨ': 'ㅂ', 'ᗐ': 'ㅂ', 'ᗕ': 'ㅂ', '田': 'ㅂ', '口': 'ㅂ', '日': 'ㅂ', '目': 'ㅂ', '囗': 'ㅂ',
+    '己': 'ㄹ', '乙': 'ㄹ', '已': 'ㄹ', '巳': 'ㄹ', '匚': 'ㄷ',
+    '卜': 'ㅏ', 'r': 'ㅏ', 'F': 'ㅏ', '丨': 'ㅏ', '|': 'ㅏ', 'ㅣ': 'ㅏ', '/': 'ㅏ', '⼃': 'ㅏ', '⼁': 'ㅏ', '⼂': 'ㅏ',
+    'l': 'ㅣ', '1': 'ㅣ', 'I': 'ㅣ', '!': 'ㅣ', '¦': 'ㅣ', '｜': 'ㅣ', '￤': 'ㅣ', 'І': 'ㅣ', 'Ӏ': 'ㅣ',
+    'H': 'ㅐ', 'ㅖ': 'ㅐ', 'ㅒ': 'ㅐ', 'Н': 'ㅐ', 'Ⲏ': 'ㅐ', 'ℍ': 'ㅐ',
+    '🐦': '새', '🐔': '새', '🦅': '새', '🦉': '새', '🦆': '새', '🦜': '새', '🦤': '새', '🦢': '새', '🕊': '새',
+    '🐕': '개', '🐶': '개', '🐺': '개',
+    '丕': '조', '朝': '조', '則': '조', '兆': '조', '組': '조', '早': '조', '鳥': '조', '潮': '조', '照': '조',
+    '0': 'ㅇ', 'O': 'ㅇ', 'o': 'ㅇ', '◯': 'ㅇ', '⭕': 'ㅇ', '○': 'ㅇ', '●': 'ㅇ', '◎': 'ㅇ', '◉': 'ㅇ', '◌': 'ㅇ',
+
+    'a': 'a', '@': 'a', '4': 'a', 'α': 'a', 'ä': 'a', 'å': 'a', 'ã': 'a', 'ā': 'a', 'ȧ': 'a', 'ǎ': 'a',
+    'b': 'b', '8': 'b', '6': 'b', 'ƃ': 'b', 'ɓ': 'b', 'Ƅ': 'b', 'ℬ': 'b', 'ᖯ': 'b', 'ᑲ': 'b',
+    'd': 'd', 'ḋ': 'd', 'ḍ': 'd', 'ᑯ': 'd', 'ᗞ': 'd', 'ᗪ': 'd', 'ᖙ': 'd', 'ⅆ': 'd', 'ɗ': 'd',
+    'f': 'f', 'ƒ': 'f', 'ḟ': 'f', 'ſ': 'f', 'ⅎ': 'f', 'ᶂ': 'f', 'ꜰ': 'f', 'ꟻ': 'f',
+    'g': 'g', '9': 'g', 'ǥ': 'g', 'ɡ': 'g', 'ġ': 'g', 'ģ': 'g', 'ĝ': 'g', 'ǧ': 'g',
+    'h': 'h', 'ĥ': 'h', 'ħ': 'h', 'ƕ': 'h', 'ḥ': 'h', 'ḫ': 'h', 'ⱨ': 'h', 'ꜧ': 'h',
+    'i': 'i', '1': 'i', '!': 'i', '|': 'i', 'ī': 'i', 'ĭ': 'i', 'ǐ': 'i', 'į': 'i',
+    'j': 'j', 'ĵ': 'j', 'ǰ': 'j', 'ȷ': 'j', 'ɉ': 'j', 'ⱼ': 'j', 'ʝ': 'j', 'ɟ': 'j',
+    'k': 'k', 'ķ': 'k', 'ƙ': 'k', 'ǩ': 'k', 'ḱ': 'k', 'ḳ': 'k', 'ḵ': 'k', 'ⱪ': 'k',
+    'l': 'l', '1': 'l', '|': 'l', 'ĺ': 'l', 'ļ': 'l', 'ľ': 'l', 'ŀ': 'l', 'ł': 'l',
+    'm': 'm', 'ɱ': 'm', 'ḿ': 'm', 'ṁ': 'm', 'ṃ': 'm', 'ⱥ': 'm', 'ᵯ': 'm', 'ᴍ': 'm',
+    'n': 'n', 'ń': 'n', 'ň': 'n', 'ñ': 'n', 'ņ': 'n', 'ṅ': 'n', 'ṇ': 'n', 'ṉ': 'n',
+    'p': 'p', 'ṕ': 'p', 'ṗ': 'p', 'ƥ': 'p', 'ᵽ': 'p', 'ᵱ': 'p', 'ᴘ': 'p', 'ᑭ': 'p',
+    'q': 'q', '9': 'q', 'ʠ': 'q', 'ɋ': 'q', 'ȹ': 'q', 'ⱊ': 'q', 'ⱍ': 'q', 'ꝗ': 'q',
+    'r': 'r', 'ŕ': 'r', 'ř': 'r', 'ŗ': 'r', 'ṙ': 'r', 'ṛ': 'r', 'ṝ': 'r', 'ṟ': 'r',
+    't': 't', '7': 't', '+': 't', 'ť': 't', 'ţ': 't', 'ŧ': 't', 'ț': 't', 'ṫ': 't',
+    'v': 'v', 'ṿ': 'v', 'ⱴ': 'v', 'ᵥ': 'v', 'ᵛ': 'v', '√': 'v', 'ᐱ': 'v', '∨': 'v',
+    'w': 'w', 'ẁ': 'w', 'ẃ': 'w', 'ẅ': 'w', 'ŵ': 'w', 'ẇ': 'w', 'ẉ': 'w', 'ⱳ': 'w',
+    'y': 'y', 'ý': 'y', 'ỳ': 'y', 'ŷ': 'y', 'ÿ': 'y', 'ȳ': 'y', 'ẏ': 'y', 'ỵ': 'y',
+    'z': 'z', '2': 'z', 'ź': 'z', 'ẑ': 'z', 'ž': 'z', 'ż': 'z', 'ẓ': 'z', 'ẕ': 'z',
+};
+
+const MULTI_CHAR_REPLACEMENTS = {
+    '_ㅣ_': 'ㅗ', '_/_': 'ㅗ', '_ |\_': 'ㅗ', '_|\_': 'ㅗ', '_ㅣ\_': 'ㅗ', '_I_': 'ㅗ',
+    '／＼': 'ㅅ', '/＼': 'ㅅ',
+    '77': 'ㄲ',
+    '刀卜': '까',
+    '₨': 'rs',
+    'ㅇl=스': '섹스',
+    'ㅇㅣ-ㅣ': '애',
+    'lㅣ': '니',
+    'ㅁㅣ': '미',
+    '丕刀卜己卜人丨廿卜己卜口卜': '조까씹쌔끼',
+};
+
+const FALSE_POSITIVE_PATTERNS_MINOR = [
+    '거미', '친구', '개미', '이미친', '미친증', '동그라미',
+    '뒤져봐야', '뒤질뻔', '뒤져보다', '뒤져보는', '뒤져보고', '뒤져간다', '뒤져서',
+    '뒤져본', '뒤져봄', '뒤져볼',
+];
+
+const MINOR_PROFANITY_PATTERNS = [
+    'ㅁㅊ', 'ㅁ친', 'ㅁ쳤', 'aㅣ친', 'me친', '미ㅊ', 'di친',
+    '미친놈', '미친새끼',
+    '꼽냐', '꼽니', '꼽나',
+    '뒤져', '뒈져', '뒈진', '뒈질', '디져라', '디진다', '디질래', '뒤질',
+];
+
+const allFalsePositivePatterns = [
+    ...FALSE_POSITIVE_PATTERNS_MINOR
+];
+allFalsePositivePatterns.sort((a, b) => b.length - a.length);
+const ALL_FP_REGEX = new RegExp(allFalsePositivePatterns.map(escapeRegex).join('|'), 'gi');
+
+
+const sortedMINORProfanityPatterns = [...MINOR_PROFANITY_PATTERNS];
+sortedMINORProfanityPatterns.sort((a, b) => b.length - a.length);
+
+
+function escapeRegex(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+const singleCharMapRegex = new RegExp(Object.keys(SINGLE_CHAR_NORMALIZATION_MAP).map(key => escapeRegex(key)).join('|'), 'gi');
+
+const multiCharReplacementRegex = new RegExp(
+    Object.keys(MULTI_CHAR_REPLACEMENTS)
+    .map(escapeRegex)
+    .sort((a, b) => b.length - a.length)
+    .join('|'),
+    'gi'
+);
+
+
+export function check(text: string | any): boolean {
+    if (typeof text !== 'string') {
+        if (!text) throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
+        throw new Error('korcen: String 타입만 입력 가능합니다');
     }
-    text = newtext.replace(/[^가-힣]/gi, '')
-    text = text.replace(/이미친/gi, '')
-    text = text.replace(/미친증/gi, '')
-    text = text.replace(/거미/gi, '')
-    text = text.replace(/친구/gi, '')
-    const damnit2 = ["미친", "미쳤","무친놈","뮈칀","뮈친"]
-    for (const i of damnit2) {
-        if (text.includes(i)) {
-            return true;
-        }
+    if (!text.trim()) {
+        throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
     }
 
-    text = newtext.replace(/[^가-힣]/gi, '')
-    const picking = ["꼽냐", "꼽니", "꼽나"]
-    for (const i of picking) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
+    let processedText = text.toLowerCase().replace(/ /gi, '');
 
-    text = newtext.replace(/[^ㄱ-힣]/gi, '')
-    text = text.replace(/그만 졸라/gi, '')
-    text = text.replace(/졸라서/gi, '')
-    text = text.replace(/졸라맨/gi, '')
-    const picking2 = ["ㅈㄴ","ㅈ나","존ㄴ","존맛","존나","존내","쫀나","존네","졸라"]
-    for (const i of picking2) {
-        if (text.includes(i)) {
-            return true;
-        }
-    }
+    processedText = processedText.replace(singleCharMapRegex, match => {
+        const lowerMatch = match.toLowerCase();
+        return SINGLE_CHAR_NORMALIZATION_MAP[lowerMatch] || match;
+    });
 
-    text = newtext.replace(/[^가-힣]/gi, '')
-    const picking3 = ["뒤져","뒈져","뒈진","뒈질","디져라","디진다","디질래"]
-    for (const i of picking3) {
-        if (text.includes(i)) {
+    processedText = processedText.replace(multiCharReplacementRegex, match => {
+        const lowerMatch = match.toLowerCase();
+        for (const key in MULTI_CHAR_REPLACEMENTS) {
+            if (key.toLowerCase() === lowerMatch) {
+                return MULTI_CHAR_REPLACEMENTS[key];
+            }
+        }
+        return match;
+    });
+
+    processedText = processedText.replace(ALL_FP_REGEX, '');
+
+    for (const pattern of sortedMINORProfanityPatterns) {
+        if (processedText.includes(pattern.toLowerCase())) {
             return true;
         }
     }
