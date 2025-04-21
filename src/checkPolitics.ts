@@ -1,7 +1,6 @@
-const SINGLE_CHAR_NORMALIZATION_MAP = {
-    '𝗌': 's', '𝘴': 's', '𝙨': 's', '𝚜': 's', '𝐬': 's', '𝑠': 's', '𝒔': 's', '𝓈': 's', '𝓮': 's', '𝔰': 's', '𝖘': 's', '𝕤': 's',
-    'ｓ': 's', 'ş': 's', 'ⓢ': 's', '⒮': 's', '🅢': 's', '🆂': 's', '🅂': 's', '𝑺': 's', 'ſ': 's', 'š': 's', 'ś': 's', 'ŝ': 's',
-    'ṣ': 's', 'ṡ': 's', 'ș': 's', 'ṥ': 's', 'ṧ': 's', 'ṩ': 's', '$': 's', '5': 's',
+const SINGLE_CHAR_NORMALIZATION_MAP: Record<string, string> = {
+    '𝗌': 's', '𝘴': 's', '𝙨': 's', '𝚜': 's', '𝐬': 's', '𝑠': 's', '𝒔': 's', '𝓈': 's', '𝔰': 's', '𝖘': 's', '𝕤': 's',
+    'ｓ': 's', 'ş': 's', 'ⓢ': 's', '⒮': 's', '🅢': 's', '🆂': 's', '🅂': 's', '𝑺': 's', 'ſ': 's', '$': 's', '5': 's', // ſ:s 유지, š, ś, ŝ, ṣ, ṡ, ș, ṥ, ṧ, ṩ는 s 섹션에만 있었음
 
     '𝖾': 'e', '𝘦': 'e', '𝙚': 'e', '𝚎': 'e', '𝐞': 'e', '𝑒': 'e', '𝒆': 'e', 'ℯ': 'e', '𝓮': 'e', '𝔢': 'e', '𝖊': 'e', '𝕖': 'e',
     'ｅ': 'e', 'ė': 'e', 'ⓔ': 'e', '⒠': 'e', '🅔': 'e', '🅴': 'e', '🄴': 'e', 'є': 'e', 'ê': 'e', 'ë': 'e', 'é': 'e', 'è': 'e',
@@ -23,29 +22,29 @@ const SINGLE_CHAR_NORMALIZATION_MAP = {
     '^': 'ㅅ', '人': 'ㅅ', '∧': 'ㅅ', '㉦': 'ㅅ', 'ᐲ': 'ㅅ', 'Λ': 'ㅅ', '⩘': 'ㅅ', '⋀': 'ㅅ', '⩚': 'ㅅ',
     '甘': 'ㅂ', '廿': 'ㅂ', 'ᗨ': 'ㅂ', 'ᗐ': 'ㅂ', 'ᗕ': 'ㅂ', '田': 'ㅂ', '口': 'ㅂ', '日': 'ㅂ', '目': 'ㅂ', '囗': 'ㅂ',
     '己': 'ㄹ', '乙': 'ㄹ', '已': 'ㄹ', '巳': 'ㄹ', '匚': 'ㄷ',
-    '卜': 'ㅏ', 'r': 'ㅏ', 'F': 'ㅏ', '丨': 'ㅏ', '|': 'ㅏ', 'ㅣ': 'ㅏ', '/': 'ㅏ', '⼃': 'ㅏ', '⼁': 'ㅏ', '⼂': 'ㅏ',
-    'l': 'ㅣ', '1': 'ㅣ', 'I': 'ㅣ', '!': 'ㅣ', '¦': 'ㅣ', '｜': 'ㅣ', '￤': 'ㅣ', 'І': 'ㅣ', 'Ӏ': 'ㅣ',
+    '卜': 'ㅏ', '/': 'ㅏ', '⼃': 'ㅏ', '⼁': 'ㅏ', '⼂': 'ㅏ', 'r': 'ㅏ', 'F': 'ㅏ',
+    'ㅣ': 'ㅣ', '¦': 'ㅣ', '｜': 'ㅣ', '￤': 'ㅣ', 'І': 'ㅣ', 'Ӏ': 'ㅣ', '1': 'ㅣ', '|': 'ㅣ', 'l': 'ㅣ', '!': 'ㅣ', 'I': 'ㅣ', // 1, |, l, !, I 모두 ㅣ로 매핑
     'H': 'ㅐ', 'ㅖ': 'ㅐ', 'ㅒ': 'ㅐ', 'Н': 'ㅐ', 'Ⲏ': 'ㅐ', 'ℍ': 'ㅐ',
     '🐦': '새', '🐔': '새', '🦅': '새', '🦉': '새', '🦆': '새', '🦜': '새', '🦤': '새', '🦢': '새', '🕊': '새',
     '🐕': '개', '🐶': '개', '🐺': '개',
     '丕': '조', '朝': '조', '則': '조', '兆': '조', '組': '조', '早': '조', '鳥': '조', '潮': '조', '照': '조',
-    '0': 'ㅇ', 'O': 'ㅇ', 'o': 'ㅇ', '◯': 'ㅇ', '⭕': 'ㅇ', '○': 'ㅇ', '●': 'ㅇ', '◎': 'ㅇ', '◉': 'ㅇ', '◌': 'ㅇ',
+    '0': 'ㅇ', 'O': 'ㅇ', 'o': 'ㅇ', '◯': 'ㅇ', '⭕': 'ㅇ', '○': 'ㅇ', '●': 'ㅇ', '◎': 'ㅇ', '◉': 'ㅇ', '◌': 'ㅇ', // o:ㅇ 유지
 
     'a': 'a', '@': 'a', '4': 'a', 'α': 'a', 'ä': 'a', 'å': 'a', 'ã': 'a', 'ā': 'a', 'ȧ': 'a', 'ǎ': 'a',
     'b': 'b', '8': 'b', '6': 'b', 'ƃ': 'b', 'ɓ': 'b', 'Ƅ': 'b', 'ℬ': 'b', 'ᖯ': 'b', 'ᑲ': 'b',
     'd': 'd', 'ḋ': 'd', 'ḍ': 'd', 'ᑯ': 'd', 'ᗞ': 'd', 'ᗪ': 'd', 'ᖙ': 'd', 'ⅆ': 'd', 'ɗ': 'd',
-    'f': 'f', 'ƒ': 'f', 'ḟ': 'f', 'ſ': 'f', 'ⅎ': 'f', 'ᶂ': 'f', 'ꜰ': 'f', 'ꟻ': 'f',
-    'g': 'g', '9': 'g', 'ǥ': 'g', 'ɡ': 'g', 'ġ': 'g', 'ģ': 'g', 'ĝ': 'g', 'ǧ': 'g',
-    'h': 'h', 'ĥ': 'h', 'ħ': 'h', 'ƕ': 'h', 'ḥ': 'h', 'ḫ': 'h', 'ⱨ': 'h', 'ꜧ': 'h',
-    'i': 'i', '1': 'i', '!': 'i', '|': 'i', 'ī': 'i', 'ĭ': 'i', 'ǐ': 'i', 'į': 'i',
+    'f': 'f', 'ƒ': 'f', 'ḟ': 'f', 'ⅎ': 'f', 'ᶂ': 'f', 'ꜰ': 'f', 'ꟻ': 'f',
+    'g': 'g', 'ǥ': 'g', 'ɡ': 'g', 'ġ': 'g', 'ģ': 'g', 'ĝ': 'g', 'ǧ': 'g', '9': 'g', 
+    'h': 'h', 'ĥ': 'h', 'ħ': 'h', 'ƕ': 'h', 'ḥ': 'h', 'ḫ': 'ḫ', 'ⱨ': 'h', 'ꜧ': 'h',
+    'i': 'i', 'ī': 'i', 'ĭ': 'i', 'ǐ': 'i', 'į': 'i',
     'j': 'j', 'ĵ': 'j', 'ǰ': 'j', 'ȷ': 'j', 'ɉ': 'j', 'ⱼ': 'j', 'ʝ': 'j', 'ɟ': 'j',
     'k': 'k', 'ķ': 'k', 'ƙ': 'k', 'ǩ': 'k', 'ḱ': 'k', 'ḳ': 'k', 'ḵ': 'k', 'ⱪ': 'k',
-    'l': 'l', '1': 'l', '|': 'l', 'ĺ': 'l', 'ļ': 'l', 'ľ': 'l', 'ŀ': 'l', 'ł': 'l',
+    'ĺ': 'l', 'ļ': 'l', 'ľ': 'l', 'ŀ': 'l', 'ł': 'l',
     'm': 'm', 'ɱ': 'm', 'ḿ': 'm', 'ṁ': 'm', 'ṃ': 'm', 'ⱥ': 'm', 'ᵯ': 'm', 'ᴍ': 'm',
     'n': 'n', 'ń': 'n', 'ň': 'n', 'ñ': 'n', 'ņ': 'n', 'ṅ': 'n', 'ṇ': 'n', 'ṉ': 'n',
     'p': 'p', 'ṕ': 'p', 'ṗ': 'p', 'ƥ': 'p', 'ᵽ': 'p', 'ᵱ': 'p', 'ᴘ': 'p', 'ᑭ': 'p',
-    'q': 'q', '9': 'q', 'ʠ': 'q', 'ɋ': 'q', 'ȹ': 'q', 'ⱊ': 'q', 'ⱍ': 'q', 'ꝗ': 'q',
-    'r': 'r', 'ŕ': 'r', 'ř': 'r', 'ŗ': 'r', 'ṙ': 'r', 'ṛ': 'r', 'ṝ': 'r', 'ṟ': 'r',
+    'q': 'q', 'ʠ': 'q', 'ɋ': 'q', 'ȹ': 'q', 'ⱊ': 'q', 'ⱍ': 'q', 'ꝗ': 'q',
+    'ŕ': 'r', 'ř': 'r', 'ŗ': 'r', 'ṙ': 'r', 'ṛ': 'r', 'ṝ': 'r', 'ṟ': 'r', 
     't': 't', '7': 't', '+': 't', 'ť': 't', 'ţ': 't', 'ŧ': 't', 'ț': 't', 'ṫ': 't',
     'v': 'v', 'ṿ': 'v', 'ⱴ': 'v', 'ᵥ': 'v', 'ᵛ': 'v', '√': 'v', 'ᐱ': 'v', '∨': 'v',
     'w': 'w', 'ẁ': 'w', 'ẃ': 'w', 'ẅ': 'w', 'ŵ': 'w', 'ẇ': 'w', 'ẉ': 'w', 'ⱳ': 'w',
@@ -53,8 +52,8 @@ const SINGLE_CHAR_NORMALIZATION_MAP = {
     'z': 'z', '2': 'z', 'ź': 'z', 'ẑ': 'z', 'ž': 'z', 'ż': 'z', 'ẓ': 'z', 'ẕ': 'z',
 };
 
-const MULTI_CHAR_REPLACEMENTS = {
-    '_ㅣ_': 'ㅗ', '_/_': 'ㅗ', '_ |\_': 'ㅗ', '_|\_': 'ㅗ', '_ㅣ\_': 'ㅗ', '_I_': 'ㅗ',
+const MULTI_CHAR_REPLACEMENTS: Record<string, string> = {
+    '_ㅣ_': 'ㅗ', '_/_': 'ㅗ', '_ |\_': 'ㅗ', '_|\_': 'ㅗ', '_ㅣ\\_': 'ㅗ', '_I_': 'ㅗ',
     '／＼': 'ㅅ', '/＼': 'ㅅ',
     '77': 'ㄲ',
     '刀卜': '까',
@@ -66,11 +65,18 @@ const MULTI_CHAR_REPLACEMENTS = {
     '丕刀卜己卜人丨廿卜己卜口卜': '조까씹쌔끼',
 };
 
-const FALSE_POSITIVE_PATTERNS_POLITICS = [
+const FALSE_POSITIVE_PATTERNS_POLITICS: string[] = [
     '카카오톡', '카톡', '카페', '하다가', '먹다가', '카와이', '카츠', '카레', '니가', '내가', '너가',
     '우리가', '너희가', '카카오', '카세트', '카플레이어', '카운터', '카정', '카드',
 ];
-const POLITICS_PROFANITY_PATTERNS = [
+const allFalsePositivePatterns: string[] = [
+    ...FALSE_POSITIVE_PATTERNS_POLITICS
+];
+allFalsePositivePatterns.sort((a, b) => b.length - a.length);
+
+const ALL_FP_REGEX: RegExp = new RegExp(allFalsePositivePatterns.map(escapeRegex).join('|'), 'gi');
+
+const POLITICS_PROFANITY_PATTERNS: string[] = [
     "노시개", "노알라", "뇌사모", "뇌물현", "응디시티",
     "귀걸이아빠", "달창", "대깨문", "문재앙", "문죄앙", "문죄인", "문크예거", "훠훠훠", "문빠",
     "근혜어", "길라임", "나대블츠", "닭근혜", "댓통령", "레이디가카", "바쁜벌꿀", "수첩공주", "유신공주", "유체이탈화법", "칠푼이", "쿼터갓",
@@ -79,49 +85,50 @@ const POLITICS_PROFANITY_PATTERNS = [
     "가카", "이명박근혜", "다스는누구겁니까",
 ];
 
-const allFalsePositivePatterns = [
-    ...FALSE_POSITIVE_PATTERNS_POLITICS
+const allProfanityPatterns: string[] = [
+    ...POLITICS_PROFANITY_PATTERNS,
 ];
-allFalsePositivePatterns.sort((a, b) => b.length - a.length);
-const ALL_FP_REGEX = new RegExp(allFalsePositivePatterns.map(escapeRegex).join('|'), 'gi');
 
+allProfanityPatterns.sort((a, b) => b.length - a.length);
 
-const sortedPOLITICSProfanityPatterns = [...POLITICS_PROFANITY_PATTERNS];
-sortedPOLITICSProfanityPatterns.sort((a, b) => b.length - a.length);
-
-
-function escapeRegex(string) {
+function escapeRegex(string: string): string {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-const singleCharMapRegex = new RegExp(Object.keys(SINGLE_CHAR_NORMALIZATION_MAP).map(key => escapeRegex(key)).join('|'), 'gi');
+const singleCharMapRegex: RegExp = new RegExp(Object.keys(SINGLE_CHAR_NORMALIZATION_MAP).map(key => escapeRegex(key)).join('|'), 'gi');
 
-const multiCharReplacementRegex = new RegExp(
+const multiCharReplacementRegex: RegExp = new RegExp(
     Object.keys(MULTI_CHAR_REPLACEMENTS)
-    .map(escapeRegex)
-    .sort((a, b) => b.length - a.length)
-    .join('|'),
+        .map(escapeRegex)
+        .sort((a, b) => b.length - a.length)
+        .join('|'),
     'gi'
 );
 
-
 export function politics(text: string | any): boolean {
     if (typeof text !== 'string') {
-        if (!text) throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
+        if (text === null || text === undefined) {
+             throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
+        }
         throw new Error('korcen: String 타입만 입력 가능합니다');
     }
     if (!text.trim()) {
         throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
     }
 
-    let processedText = text.toLowerCase().replace(/ /gi, '');
+    let processedText: string = text.toLowerCase().replace(/ /gi, '');
 
-    processedText = processedText.replace(singleCharMapRegex, match => {
+    processedText = processedText.replace(singleCharMapRegex, (match: string): string => {
         const lowerMatch = match.toLowerCase();
-        return SINGLE_CHAR_NORMALIZATION_MAP[lowerMatch] || match;
+        for (const key in SINGLE_CHAR_NORMALIZATION_MAP) {
+            if (key.toLowerCase() === lowerMatch) {
+                return SINGLE_CHAR_NORMALIZATION_MAP[key];
+            }
+        }
+        return match;
     });
 
-    processedText = processedText.replace(multiCharReplacementRegex, match => {
+    processedText = processedText.replace(multiCharReplacementRegex, (match: string): string => {
         const lowerMatch = match.toLowerCase();
         for (const key in MULTI_CHAR_REPLACEMENTS) {
             if (key.toLowerCase() === lowerMatch) {
@@ -133,7 +140,7 @@ export function politics(text: string | any): boolean {
 
     processedText = processedText.replace(ALL_FP_REGEX, '');
 
-    for (const pattern of sortedPOLITICSProfanityPatterns) {
+    for (const pattern of allProfanityPatterns) {
         if (processedText.includes(pattern.toLowerCase())) {
             return true;
         }
