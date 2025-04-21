@@ -1,7 +1,6 @@
-const SINGLE_CHAR_NORMALIZATION_MAP = {
-    '𝗌': 's', '𝘴': 's', '𝙨': 's', '𝚜': 's', '𝐬': 's', '𝑠': 's', '𝒔': 's', '𝓈': 's', '𝓮': 's', '𝔰': 's', '𝖘': 's', '𝕤': 's',
-    'ｓ': 's', 'ş': 's', 'ⓢ': 's', '⒮': 's', '🅢': 's', '🆂': 's', '🅂': 's', '𝑺': 's', 'ſ': 's', 'š': 's', 'ś': 's', 'ŝ': 's',
-    'ṣ': 's', 'ṡ': 's', 'ș': 's', 'ṥ': 's', 'ṧ': 's', 'ṩ': 's', '$': 's', '5': 's',
+const SINGLE_CHAR_NORMALIZATION_MAP: Record<string, string> = {
+    '𝗌': 's', '𝘴': 's', '𝙨': 's', '𝚜': 's', '𝐬': 's', '𝑠': 's', '𝒔': 's', '𝓈': 's', '𝔰': 's', '𝖘': 's', '𝕤': 's',
+    'ｓ': 's', 'ş': 's', 'ⓢ': 's', '⒮': 's', '🅢': 's', '🆂': 's', '🅂': 's', '𝑺': 's', 'ſ': 's', '$': 's', '5': 's', // ſ:s 유지, š, ś, ŝ, ṣ, ṡ, ș, ṥ, ṧ, ṩ는 s 섹션에만 있었음
 
     '𝖾': 'e', '𝘦': 'e', '𝙚': 'e', '𝚎': 'e', '𝐞': 'e', '𝑒': 'e', '𝒆': 'e', 'ℯ': 'e', '𝓮': 'e', '𝔢': 'e', '𝖊': 'e', '𝕖': 'e',
     'ｅ': 'e', 'ė': 'e', 'ⓔ': 'e', '⒠': 'e', '🅔': 'e', '🅴': 'e', '🄴': 'e', 'є': 'e', 'ê': 'e', 'ë': 'e', 'é': 'e', 'è': 'e',
@@ -23,29 +22,29 @@ const SINGLE_CHAR_NORMALIZATION_MAP = {
     '^': 'ㅅ', '人': 'ㅅ', '∧': 'ㅅ', '㉦': 'ㅅ', 'ᐲ': 'ㅅ', 'Λ': 'ㅅ', '⩘': 'ㅅ', '⋀': 'ㅅ', '⩚': 'ㅅ',
     '甘': 'ㅂ', '廿': 'ㅂ', 'ᗨ': 'ㅂ', 'ᗐ': 'ㅂ', 'ᗕ': 'ㅂ', '田': 'ㅂ', '口': 'ㅂ', '日': 'ㅂ', '目': 'ㅂ', '囗': 'ㅂ',
     '己': 'ㄹ', '乙': 'ㄹ', '已': 'ㄹ', '巳': 'ㄹ', '匚': 'ㄷ',
-    '卜': 'ㅏ', 'r': 'ㅏ', 'F': 'ㅏ', '丨': 'ㅏ', '|': 'ㅏ', 'ㅣ': 'ㅏ', '/': 'ㅏ', '⼃': 'ㅏ', '⼁': 'ㅏ', '⼂': 'ㅏ',
-    'l': 'ㅣ', '1': 'ㅣ', 'I': 'ㅣ', '!': 'ㅣ', '¦': 'ㅣ', '｜': 'ㅣ', '￤': 'ㅣ', 'І': 'ㅣ', 'Ӏ': 'ㅣ',
+    '卜': 'ㅏ', '/': 'ㅏ', '⼃': 'ㅏ', '⼁': 'ㅏ', '⼂': 'ㅏ', 'r': 'ㅏ', 'F': 'ㅏ',
+    'ㅣ': 'ㅣ', '¦': 'ㅣ', '｜': 'ㅣ', '￤': 'ㅣ', 'І': 'ㅣ', 'Ӏ': 'ㅣ', '1': 'ㅣ', '|': 'ㅣ', 'l': 'ㅣ', '!': 'ㅣ', 'I': 'ㅣ', // 1, |, l, !, I 모두 ㅣ로 매핑
     'H': 'ㅐ', 'ㅖ': 'ㅐ', 'ㅒ': 'ㅐ', 'Н': 'ㅐ', 'Ⲏ': 'ㅐ', 'ℍ': 'ㅐ',
     '🐦': '새', '🐔': '새', '🦅': '새', '🦉': '새', '🦆': '새', '🦜': '새', '🦤': '새', '🦢': '새', '🕊': '새',
     '🐕': '개', '🐶': '개', '🐺': '개',
     '丕': '조', '朝': '조', '則': '조', '兆': '조', '組': '조', '早': '조', '鳥': '조', '潮': '조', '照': '조',
-    '0': 'ㅇ', 'O': 'ㅇ', 'o': 'ㅇ', '◯': 'ㅇ', '⭕': 'ㅇ', '○': 'ㅇ', '●': 'ㅇ', '◎': 'ㅇ', '◉': 'ㅇ', '◌': 'ㅇ',
+    '0': 'ㅇ', 'O': 'ㅇ', 'o': 'ㅇ', '◯': 'ㅇ', '⭕': 'ㅇ', '○': 'ㅇ', '●': 'ㅇ', '◎': 'ㅇ', '◉': 'ㅇ', '◌': 'ㅇ', // o:ㅇ 유지
 
     'a': 'a', '@': 'a', '4': 'a', 'α': 'a', 'ä': 'a', 'å': 'a', 'ã': 'a', 'ā': 'a', 'ȧ': 'a', 'ǎ': 'a',
     'b': 'b', '8': 'b', '6': 'b', 'ƃ': 'b', 'ɓ': 'b', 'Ƅ': 'b', 'ℬ': 'b', 'ᖯ': 'b', 'ᑲ': 'b',
     'd': 'd', 'ḋ': 'd', 'ḍ': 'd', 'ᑯ': 'd', 'ᗞ': 'd', 'ᗪ': 'd', 'ᖙ': 'd', 'ⅆ': 'd', 'ɗ': 'd',
-    'f': 'f', 'ƒ': 'f', 'ḟ': 'f', 'ſ': 'f', 'ⅎ': 'f', 'ᶂ': 'f', 'ꜰ': 'f', 'ꟻ': 'f',
-    'g': 'g', '9': 'g', 'ǥ': 'g', 'ɡ': 'g', 'ġ': 'g', 'ģ': 'g', 'ĝ': 'g', 'ǧ': 'g',
-    'h': 'h', 'ĥ': 'h', 'ħ': 'h', 'ƕ': 'h', 'ḥ': 'h', 'ḫ': 'h', 'ⱨ': 'h', 'ꜧ': 'h',
-    'i': 'i', '1': 'i', '!': 'i', '|': 'i', 'ī': 'i', 'ĭ': 'i', 'ǐ': 'i', 'į': 'i',
+    'f': 'f', 'ƒ': 'f', 'ḟ': 'f', 'ⅎ': 'f', 'ᶂ': 'f', 'ꜰ': 'f', 'ꟻ': 'f',
+    'g': 'g', 'ǥ': 'g', 'ɡ': 'g', 'ġ': 'g', 'ģ': 'g', 'ĝ': 'g', 'ǧ': 'g', '9': 'g', 
+    'h': 'h', 'ĥ': 'h', 'ħ': 'h', 'ƕ': 'h', 'ḥ': 'h', 'ḫ': 'ḫ', 'ⱨ': 'h', 'ꜧ': 'h',
+    'i': 'i', 'ī': 'i', 'ĭ': 'i', 'ǐ': 'i', 'į': 'i',
     'j': 'j', 'ĵ': 'j', 'ǰ': 'j', 'ȷ': 'j', 'ɉ': 'j', 'ⱼ': 'j', 'ʝ': 'j', 'ɟ': 'j',
     'k': 'k', 'ķ': 'k', 'ƙ': 'k', 'ǩ': 'k', 'ḱ': 'k', 'ḳ': 'k', 'ḵ': 'k', 'ⱪ': 'k',
-    'l': 'l', '1': 'l', '|': 'l', 'ĺ': 'l', 'ļ': 'l', 'ľ': 'l', 'ŀ': 'l', 'ł': 'l',
+    'ĺ': 'l', 'ļ': 'l', 'ľ': 'l', 'ŀ': 'l', 'ł': 'l',
     'm': 'm', 'ɱ': 'm', 'ḿ': 'm', 'ṁ': 'm', 'ṃ': 'm', 'ⱥ': 'm', 'ᵯ': 'm', 'ᴍ': 'm',
     'n': 'n', 'ń': 'n', 'ň': 'n', 'ñ': 'n', 'ņ': 'n', 'ṅ': 'n', 'ṇ': 'n', 'ṉ': 'n',
     'p': 'p', 'ṕ': 'p', 'ṗ': 'p', 'ƥ': 'p', 'ᵽ': 'p', 'ᵱ': 'p', 'ᴘ': 'p', 'ᑭ': 'p',
-    'q': 'q', '9': 'q', 'ʠ': 'q', 'ɋ': 'q', 'ȹ': 'q', 'ⱊ': 'q', 'ⱍ': 'q', 'ꝗ': 'q',
-    'r': 'r', 'ŕ': 'r', 'ř': 'r', 'ŗ': 'r', 'ṙ': 'r', 'ṛ': 'r', 'ṝ': 'r', 'ṟ': 'r',
+    'q': 'q', 'ʠ': 'q', 'ɋ': 'q', 'ȹ': 'q', 'ⱊ': 'q', 'ⱍ': 'q', 'ꝗ': 'q',
+    'ŕ': 'r', 'ř': 'r', 'ŗ': 'r', 'ṙ': 'r', 'ṛ': 'r', 'ṝ': 'r', 'ṟ': 'r', 
     't': 't', '7': 't', '+': 't', 'ť': 't', 'ţ': 't', 'ŧ': 't', 'ț': 't', 'ṫ': 't',
     'v': 'v', 'ṿ': 'v', 'ⱴ': 'v', 'ᵥ': 'v', 'ᵛ': 'v', '√': 'v', 'ᐱ': 'v', '∨': 'v',
     'w': 'w', 'ẁ': 'w', 'ẃ': 'w', 'ẅ': 'w', 'ŵ': 'w', 'ẇ': 'w', 'ẉ': 'w', 'ⱳ': 'w',
@@ -53,8 +52,8 @@ const SINGLE_CHAR_NORMALIZATION_MAP = {
     'z': 'z', '2': 'z', 'ź': 'z', 'ẑ': 'z', 'ž': 'z', 'ż': 'z', 'ẓ': 'z', 'ẕ': 'z',
 };
 
-const MULTI_CHAR_REPLACEMENTS = {
-    '_ㅣ_': 'ㅗ', '_/_': 'ㅗ', '_ |\_': 'ㅗ', '_|\_': 'ㅗ', '_ㅣ\_': 'ㅗ', '_I_': 'ㅗ',
+const MULTI_CHAR_REPLACEMENTS: Record<string, string> = {
+    '_ㅣ_': 'ㅗ', '_/_': 'ㅗ', '_ |\_': 'ㅗ', '_|\_': 'ㅗ', '_ㅣ\\_': 'ㅗ', '_I_': 'ㅗ',
     '／＼': 'ㅅ', '/＼': 'ㅅ',
     '77': 'ㄲ',
     '刀卜': '까',
@@ -66,7 +65,7 @@ const MULTI_CHAR_REPLACEMENTS = {
     '丕刀卜己卜人丨廿卜己卜口卜': '조까씹쌔끼',
 };
 
-const FALSE_POSITIVE_PATTERNS_GENERAL = [
+const FALSE_POSITIVE_PATTERNS_GENERAL: string[] = [
     'ㅗ먹어', '오ㅗ', '해ㅗ', '호ㅗ', '로ㅗ', '옹ㅗ', '롤ㅗ', '요ㅗ', '우ㅗ', '하ㅗ',
     'ㅗ오', 'ㅗ호', 'ㅗ로', 'ㅗ옹', 'ㅗ롤', 'ㅗ요', 'ㅗ우', 'ㅗ하',
     'ㅗㅗ오', 'ㅗㅗ호', 'ㅗㅗ로', 'ㅗㅗ옹', 'ㅗㅗ롤', 'ㅗㅗ요', 'ㅗㅗ우', 'ㅗㅗ하',
@@ -105,12 +104,12 @@ const FALSE_POSITIVE_PATTERNS_GENERAL = [
     '내쫒다', '좇아',
     'ㅡ'
 ];
-const FALSE_POSITIVE_PATTERNS_MINOR = [
+const FALSE_POSITIVE_PATTERNS_MINOR: string[] = [
     '거미', '친구', '개미', '이미친', '미친증', '동그라미',
     '뒤져봐야', '뒤질뻔', '뒤져보다', '뒤져보는', '뒤져보고', '뒤져간다', '뒤져서',
     '뒤져본', '뒤져봄', '뒤져볼',
 ];
-const FALSE_POSITIVE_PATTERNS_SEXUAL = [
+const FALSE_POSITIVE_PATTERNS_SEXUAL: string[] = [
     '보지도못', '보지도않', '인가보지', '면접보지', '영화보지', '애니보지', '만화보지', '사진보지',
     '그림보지', '을보지', '나보지', '못보지', '안보지', '왜보지', '뭐보지', '다보지', '빨리보지',
     '보지도마', '보지는않', '보지안으', '보지안아', '게보지', '어케보지', '하나보지', '켜보지',
@@ -129,21 +128,33 @@ const FALSE_POSITIVE_PATTERNS_SEXUAL = [
     '위대한', '소유자', '작업자', '자기위로', '위대하지', '암살자', '학자',
     'freenude',
 ];
-const FALSE_POSITIVE_PATTERNS_BELITTLE = [
+const FALSE_POSITIVE_PATTERNS_BELITTLE: string[] = [
     '려운지', '무서운지', '라운지', '운지법', '싸운지', '운지버섯', '운지린다', '깔보다', '깔보시',
     '1년', '2년', '3년', '4년', '5년', '6년', '7년', '8년', '9년', '0년',
     '더운지역', '나따까리', '지킬앤하이드', '지킬엔하이드',
 ];
-const FALSE_POSITIVE_PATTERNS_RACE = ['흑형님'];
-const FALSE_POSITIVE_PATTERNS_PARENT = ['ㄴㄴ', '미국', '엄창못'];
-const FALSE_POSITIVE_PATTERNS_POLITICS = [
+const FALSE_POSITIVE_PATTERNS_RACE: string[] = ['흑형님'];
+const FALSE_POSITIVE_PATTERNS_PARENT: string[] = ['ㄴㄴ', '미국', '엄창못'];
+const FALSE_POSITIVE_PATTERNS_POLITICS: string[] = [
     '카카오톡', '카톡', '카페', '하다가', '먹다가', '카와이', '카츠', '카레', '니가', '내가', '너가',
     '우리가', '너희가', '카카오', '카세트', '카플레이어', '카운터', '카정', '카드',
 ];
-const FALSE_POSITIVE_PATTERNS_ENGLISH = ['```css', 'ex)', '*', 'omg'];
+const FALSE_POSITIVE_PATTERNS_ENGLISH: string[] = ['```css', 'ex)', '*', 'omg'];
 
+const allFalsePositivePatterns: string[] = [
+    ...FALSE_POSITIVE_PATTERNS_GENERAL,
+    ...FALSE_POSITIVE_PATTERNS_MINOR,
+    ...FALSE_POSITIVE_PATTERNS_SEXUAL,
+    ...FALSE_POSITIVE_PATTERNS_BELITTLE,
+    ...FALSE_POSITIVE_PATTERNS_RACE,
+    ...FALSE_POSITIVE_PATTERNS_PARENT,
+    ...FALSE_POSITIVE_PATTERNS_POLITICS,
+];
+allFalsePositivePatterns.sort((a, b) => b.length - a.length);
 
-const GENERAL_PROFANITY_PATTERNS = [
+const ALL_FP_REGEX: RegExp = new RegExp(allFalsePositivePatterns.map(escapeRegex).join('|'), 'gi');
+
+const GENERAL_PROFANITY_PATTERNS: string[] = [
     'ㅗ', '씨8', '18아', '18놈', 'tㅂ', 't발', 'ㅆㅍ', 'sibal', 'sival', 'sibar', 'sibak', 'sipal',
     'siqk', 'tlbal', 'tlval', 'tlbar', 'tlbak', 'tlpal', 'tlqk', '시발', '시val', '시bar',
     '시bak', '시pal', '시qk', 'si바', 'si발', 'si불', 'si빨', 'si팔', 'tl바', 'tl발', 'tl불', 'tl빨', 'tl팔',
@@ -184,7 +195,7 @@ const GENERAL_PROFANITY_PATTERNS = [
     '쌖', '쎆', '새긔', '개소리', '개년', '개드립', '개돼지', '개씹창', '개간나', '개스끼', '개섹기',
     '개자식', '개때꺄', '개때끼', '개발남아', '개샛끼', '개가든', '개가뜬', '개가턴', '개가툰',
     '개갇은', '개갈보', '개걸레', '개너마', '개너므', '개넌', '개넘', '개녀나',
-    '개노마', '개노무새끼', '개논', '개놈', '개뇨나', '개뇬', '개뇸', '개뇽', '개눔', '개느마',
+    '개노마', '개no무새끼', '개논', '개놈', '개뇨나', '개뇬', '개뇸', '개뇽', '개눔', '개느마',
     '개늠', '개랙기', '개련', '개발남아', '개발뇬', '개색', '개색기',
     '개색끼', '개샛키', '개샛킹', '개샛히', '개샜끼', '개생키', '개샠', '개샤끼', '개샤킥',
     '개샥', '개샹늠', '개세리', '개세키', '개섹히', '개섺', '개셃', '개셋키', '개셐',
@@ -205,34 +216,34 @@ const GENERAL_PROFANITY_PATTERNS = [
     '게세꺄', '게자지', '게잡넘', '게잡년', '게잡뇬', '게젓', '게좆', '계같은뇬', '계뇬',
     '계뇽', '쉬댕', '쉬뎅', '개생끼'
 ];
-const MINOR_PROFANITY_PATTERNS = [
+const MINOR_PROFANITY_PATTERNS: string[] = [
     'ㅁㅊ', 'ㅁ친', 'ㅁ쳤', 'aㅣ친', 'me친', '미ㅊ', 'di친',
     '미친놈', '미친새끼',
-    '꼽냐', '꼽니', '꼽나',
+    '꼽냐', '꼽ni', '꼽나',
     '뒤져', '뒈져', '뒈진', '뒈질', '디져라', '디진다', '디질래', '뒤질',
 ];
-const SEXUAL_PROFANITY_PATTERNS = [
+const SEXUAL_PROFANITY_PATTERNS: string[] = [
     'ⓑⓞⓩⓘ', 'bozi', '보ㅈㅣ', '보지', '버지물', '버짓물', '보짓', '개보즤', '개보지', '버지벌렁벌렁', '보짖', '뵤즤', '봊이', '보g',
     'ja지', 'ㅈㅈ빨', '자ㅈ', 'ㅈ지빨', '자지', '자짓', '잦이', '쟈지',
     'sex', 's스', 'x스', 'se스', 'ㅅㅅ', 's하고e싶다x', 'ㅅㅔㅅㄱ', '이=스', '섹ㅅ', '세ㄱㅅ', '섹스', '섻', '쉑스', '섿스', '섹그', '야스', '색스', '셱스', '섁스', '세엑스', '썩스', '섹수', '섹파', '섹하자', '쉐스', '쉐엑스', '색수', '세엑수우', '섹하고', '섹하구', '섹하장', '섹하쟈', '섹한번', '쌕스',
     '꼬3', '꼬툭튀', '꼬톡튀', '불알', '부랄', '뽕알', '뿅알', '뿌랄', '뿔알', '개부달', '개부랄', '개부러럴', '개부럴', '개부뢀', '개부알', '개불알', '똘추', '똥구멍', '부라랄',
     '오나홍', '오나홀', 'ㅇㄴ홀', '텐가', '바이브레이터', '오ㄴ홀', 'ㅇ나홀', '씹하다', '매춘부', '성노예', '자궁문신',
-    '모유물', '로리물', '근친상간', '룸섹스', '원조교재', '속박플레이', '야외플레이',
+    '모유물', '로리물', '근친상간', '룸섹스', '야외플레이',
     '딸딸이', '질싸', '안에사정', '자위남', '자위녀', '폰섹', '포르노', '폰세엑', '폰쉑', '폰쎅', '질내사정', '그룹섹', '남창', '男色', '누워라이년아', '누웠냐씨방새', '다리벌려', '대줄년', '뒤로너어줘', '딸따뤼', '딸쳐', '떡쳐라', '막대쑤셔줘', '막대핥아줘', '먹고보니내딸', '먹고보니누나', '먹고보니딸', '먹고보니똥개', '먹고보니엄마', '먹고보니응아', '먹고보니재수', '먹고보니처제', '먹고보니형수', '몸뚱이줄께', '몸안에사정', '밖에다쌀께', '박고빼고', '배위에싸죠', '몸의대화', '섹할', '섹해',
     'g스팟', '지스팟', '크리토리스', '클리토리스', '페니스', '애널', '젖까', '젖가튼', '젖나', '젖만',
     'ja위', '자위', '고자새끼', '고츄', '꺼추', '꼬추',
 ];
-const BELITTLE_PROFANITY_PATTERNS = [
+const BELITTLE_PROFANITY_PATTERNS: string[] = [
     '10련', '따까리', '장애년', '찐따년', '싸가지', '창년', '썅년', '버러지', '고아년', '개간년', '종간나', '도구년', '걸래년', '씹년', '개걸레',
     '창녀', '머저리', '씹쓰래기', '씹쓰레기', '씹장생', '씹자식', '운지', '급식충', '틀딱충', '조센징', '매국노', '똥꼬충', '진지충', '듣보잡', '개찐따',
     '한남충', '정신병자', '중생아', '돌팔이', '김치녀', '폰팔이', '틀딱년', '같은년', '개돼중', '쓰글년', '썩을년', '썩글년', '씹할', '거지새끼', '거지쉐뀌',
     '거지쉑이', '거지쎄끼', '거지쒜리', '걸래가튼', '걸래넘', '걸래년', '걸래놈', '걸레가튼', '걸레년', '그지새끼', '그지새키', '그지색', '기집년', '까진년',
     '깔보', '난잡년', '빡대가리', '더러운년', '돌아이', '또라이', '장애려', '샹놈', '김치남', '김치녀', '혜지련', '한유남충', '페미나치', '페미년', '꼴페미',
 ];
-const RACE_PROFANITY_PATTERNS = [
+const RACE_PROFANITY_PATTERNS: string[] = [
     '깜둥이', '흑형', '조센진', '짱개', '짱깨', '짱께', '짱게', '쪽바리', '쪽파리', '빨갱이', '니그로', '코쟁이', '칭총', '칭챙총', '섬숭이', '왜놈', '짱꼴라', '섬짱깨',
 ];
-const PARENT_PROFANITY_PATTERNS = [
+const PARENT_PROFANITY_PATTERNS: string[] = [
     'ㄴ1ㄱ', 'ㄴ1ㅁ', '느금ㅁ', 'ㄴㄱ마', 'ㄴㄱ빠', 'ㄴ금빠', 'ㅇH미', 'ㄴ1에미', '늬애미', '@ㅐ미', '@ㅐ비',
     'ㄴㄱㅁ', 'ㄴ금마', '늬금마',
     '느금마', '느그엄마', '늑엄마', '늑금마', '느그애미', '넉엄마', '느그부모', '느그애비', '느금빠', '느그메', '느그빠', '니미씨', '니미씹',
@@ -243,8 +254,8 @@ const PARENT_PROFANITY_PATTERNS = [
     '애미죽', '애미디진',
 ];
 
-const SPECIAL_PROFANITY_PATTERNS = ["🖕🏻", "👌🏻👈🏻", "👉🏻👌🏻", "🤏🏻", "🖕", "🖕🏼", "🖕🏽", "🖕🏾", "🖕🏿", ":middle_finger:"];
-const POLITICS_PROFANITY_PATTERNS = [
+const SPECIAL_PROFANITY_PATTERNS: string[] = ["🖕🏻", "👌🏻👈🏻", "👉🏻👌🏻", "🤏🏻", "🖕", "🖕🏼", "🖕🏽", "🖕🏾", "🖕🏿", ":middle_finger:"];
+const POLITICS_PROFANITY_PATTERNS: string[] = [
     "노시개", "노알라", "뇌사모", "뇌물현", "응디시티",
     "귀걸이아빠", "달창", "대깨문", "문재앙", "문죄앙", "문죄인", "문크예거", "훠훠훠", "문빠",
     "근혜어", "길라임", "나대블츠", "닭근혜", "댓통령", "레이디가카", "바쁜벌꿀", "수첩공주", "유신공주", "유체이탈화법", "칠푼이", "쿼터갓",
@@ -253,19 +264,7 @@ const POLITICS_PROFANITY_PATTERNS = [
     "가카", "이명박근혜", "다스는누구겁니까",
 ];
 
-const allFalsePositivePatterns = [
-    ...FALSE_POSITIVE_PATTERNS_GENERAL,
-    ...FALSE_POSITIVE_PATTERNS_MINOR,
-    ...FALSE_POSITIVE_PATTERNS_SEXUAL,
-    ...FALSE_POSITIVE_PATTERNS_BELITTLE,
-    ...FALSE_POSITIVE_PATTERNS_RACE,
-    ...FALSE_POSITIVE_PATTERNS_PARENT,
-    ...FALSE_POSITIVE_PATTERNS_POLITICS,
-];
-allFalsePositivePatterns.sort((a, b) => b.length - a.length);
-const ALL_FP_REGEX = new RegExp(allFalsePositivePatterns.map(escapeRegex).join('|'), 'gi');
-
-const allProfanityPatterns = [
+const allProfanityPatterns: string[] = [
     ...GENERAL_PROFANITY_PATTERNS,
     ...MINOR_PROFANITY_PATTERNS,
     ...SEXUAL_PROFANITY_PATTERNS,
@@ -278,40 +277,44 @@ const allProfanityPatterns = [
 
 allProfanityPatterns.sort((a, b) => b.length - a.length);
 
-
-function escapeRegex(string) {
+function escapeRegex(string: string): string {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-const singleCharMapRegex = new RegExp(Object.keys(SINGLE_CHAR_NORMALIZATION_MAP).map(key => escapeRegex(key)).join('|'), 'gi');
+const singleCharMapRegex: RegExp = new RegExp(Object.keys(SINGLE_CHAR_NORMALIZATION_MAP).map(key => escapeRegex(key)).join('|'), 'gi');
 
-const multiCharReplacementRegex = new RegExp(
+const multiCharReplacementRegex: RegExp = new RegExp(
     Object.keys(MULTI_CHAR_REPLACEMENTS)
-    .map(escapeRegex)
-    .sort((a, b) => b.length - a.length)
-    .join('|'),
+        .map(escapeRegex)
+        .sort((a, b) => b.length - a.length)
+        .join('|'),
     'gi'
 );
 
-
 export function check(text: string | any): boolean {
     if (typeof text !== 'string') {
-        if (!text) throw new Error('Korean: 확인할 텍스트를 입력해 주세요');
-        throw new Error('Korean: String 타입만 입력 가능합니다');
+        if (text === null || text === undefined) {
+             throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
+        }
+        throw new Error('korcen: String 타입만 입력 가능합니다');
     }
     if (!text.trim()) {
-        throw new Error('Korean: 확인할 텍스트를 입력해 주세요');
+        throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
     }
 
-    let processedText = text.toLowerCase().replace(/ /gi, '');
+    let processedText: string = text.toLowerCase().replace(/ /gi, '');
 
-    processedText = processedText.replace(singleCharMapRegex, match => {
+    processedText = processedText.replace(singleCharMapRegex, (match: string): string => {
         const lowerMatch = match.toLowerCase();
-        return SINGLE_CHAR_NORMALIZATION_MAP[lowerMatch] || match;
+        for (const key in SINGLE_CHAR_NORMALIZATION_MAP) {
+            if (key.toLowerCase() === lowerMatch) {
+                return SINGLE_CHAR_NORMALIZATION_MAP[key];
+            }
+        }
+        return match;
     });
 
-
-    processedText = processedText.replace(multiCharReplacementRegex, match => {
+    processedText = processedText.replace(multiCharReplacementRegex, (match: string): string => {
         const lowerMatch = match.toLowerCase();
         for (const key in MULTI_CHAR_REPLACEMENTS) {
             if (key.toLowerCase() === lowerMatch) {
