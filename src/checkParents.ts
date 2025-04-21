@@ -105,7 +105,7 @@ const multiCharReplacementRegex = new RegExp(
 );
 
 
-export function check(text: string | any): boolean {
+export function parents(text: string | any): boolean {
     if (typeof text !== 'string') {
         if (!text) throw new Error('korcen: 확인할 텍스트를 입력해 주세요');
         throw new Error('korcen: String 타입만 입력 가능합니다');
