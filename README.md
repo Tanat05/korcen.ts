@@ -9,6 +9,7 @@
   
   [![NPM version](http://img.shields.io/npm/v/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
   [![downloads](http://img.shields.io/npm/dm/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
+  [![downloads](https://img.shields.io/npm/dt/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
 </div>
 
 "Beyond Python: Robust and Scalable Profanity Filtering with TypeScript."
