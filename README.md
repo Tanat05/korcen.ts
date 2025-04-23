@@ -10,22 +10,14 @@
   [![NPM version](http://img.shields.io/npm/v/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
   [![downloads](http://img.shields.io/npm/dm/korcen.svg?style=flat-square)](https://www.npmjs.org/package/korcen)
 </div>
-<div align="center">
-  <h2>
-    <a href="https://github.com/Tanat05/korcen.ts">EN</a>
-    <a href="https://github.com/Tanat05/korcen/blob/main/readme/KR.md">KR</a>
-  </h2>
-</div>
 
-korcen is korean + censorship 
+"Beyond Python: Robust and Scalable Profanity Filtering with TypeScript."
 
-Anyone can easily check if there are Korean slang words
+Building upon the success of our Python-based keyword filter, this project reimplements the core functionality using TypeScript. This migration enhances scalability, maintainability, and allows for seamless integration into modern web development workflows, offering the same ease of use with improved architectural benefits.
 
-Although Korean slang is the main module, you can collect modules of other users to censor slang in other languages
+[Korcen](https://github.com/KR-korcen/korcen): original before innovation.
 
-[py version](https://github.com/KR-korcen/korcen)
-
-[support discord](https://discord.gg/wyTU3ZQBPE)
+[Korcen-kogpt2](https://github.com/Tanat05/korcen-kogpt2): This failure is the seed of innovation.
 
 ## Installation
 
