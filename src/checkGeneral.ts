@@ -18,7 +18,7 @@ const SINGLE_CHAR_NORMALIZATION_MAP: Record<string, string> = {
     'Ｃ': 'C', 'Ć': 'C', 'Ĉ': 'C', 'Č': 'C', 'Ċ': 'C', 'Ç': 'C', 'Ḉ': 'C',
     'Ｕ': 'U', 'Ú': 'U', 'Ù': 'U', 'Û': 'U', 'Ũ': 'U', 'Ū': 'U', 'Ŭ': 'U', 'Ů': 'U', 'Ű': 'U', 'Ụ': 'U',
 
-    'ㅗ': 'ㅗ', '┻': 'ㅗ', '┴': 'ㅗ', '┹': 'ㅗ', '⊥': 'ㅗ', '†': 'ㅗ', '⟂': 'ㅗ', '╨': 'ㅗ', '╧': 'ㅗ', '╥': 'ㅗ',
+    'ㅗ': 'ㅗ', '┻': 'ㅗㅗ', '┴': 'ㅗㅗ', '┹': 'ㅗㅗ', '⊥': 'ㅗㅗ', '†': 'ㅗㅗ', '⟂': 'ㅗㅗ', '╨': 'ㅗㅗ', '╧': 'ㅗㅗ', '╥': 'ㅗㅗ',
     '人': 'ㅅ', '∧': 'ㅅ', '㉦': 'ㅅ', 'ᐲ': 'ㅅ', 'Λ': 'ㅅ', '⩘': 'ㅅ', '⋀': 'ㅅ', '⩚': 'ㅅ',
     '甘': 'ㅂ', '廿': 'ㅂ', 'ᗨ': 'ㅂ', 'ᗐ': 'ㅂ', 'ᗕ': 'ㅂ', '田': 'ㅂ', '口': 'ㅂ', '日': 'ㅂ', '目': 'ㅂ', '囗': 'ㅂ',
     '己': 'ㄹ', '乙': 'ㄹ', '已': 'ㄹ', '巳': 'ㄹ', '匚': 'ㄷ',
@@ -53,7 +53,7 @@ const SINGLE_CHAR_NORMALIZATION_MAP: Record<string, string> = {
 };
 
 const MULTI_CHAR_REPLACEMENTS: Record<string, string> = {
-    '_ㅣ_': 'ㅗ', '_/_': 'ㅗ', '_ |\_': 'ㅗ', '_|\_': 'ㅗ', '_ㅣ\\_': 'ㅗ', '_I_': 'ㅗ',
+    '_ㅣ_': 'ㅗㅗ', '_/_': 'ㅗㅗ', '_ |\_': 'ㅗㅗ', '_|\_': 'ㅗㅗ', '_ㅣ\\_': 'ㅗㅗ', '_I_': 'ㅗㅗ',
     '／＼': 'ㅅ', '/＼': 'ㅅ',
     '77': 'ㄲ',
     '刀卜': '까',
@@ -112,7 +112,7 @@ allFalsePositivePatterns.sort((a, b) => b.length - a.length);
 const ALL_FP_REGEX: RegExp = new RegExp(allFalsePositivePatterns.map(escapeRegex).join('|'), 'gi');
 
 const GENERAL_PROFANITY_PATTERNS: string[] = [
-    '씨8', '18아', '18놈', 'tㅂ', 't발', 'ㅆㅍ', 'sibal', 'sival', 'sibar', 'sibak', 'sipal',
+    'ㅗㅗ', '씨8', '18아', '18놈', 'tㅂ', 't발', 'ㅆㅍ', 'sibal', 'sival', 'sibar', 'sibak', 'sipal',
     'siqk', 'tlbal', 'tlval', 'tlbar', 'tlbak', 'tlpal', 'tlqk', '시발', '시val', '시bar',
     '시bak', '시pal', '시qk', 'si바', 'si발', 'si불', 'si빨', 'si팔', 'tl바', 'tl발', 'tl불', 'tl빨', 'tl팔',
     'siba', 'tlba', 'siva', 'tlva', 'tlqkf', '10발놈', '10발년', 'tlqkd', 'si8', '10r놈', '시8', '십8',
@@ -172,6 +172,7 @@ const GENERAL_PROFANITY_PATTERNS: string[] = [
     '게부랄', '게부알', '게새끼', '게새리', '게새키', '게색', '게색기', '게색끼', '게샛키',
     '게세꺄', '게자지', '게잡넘', '게잡년', '게잡뇬', '게젓', '게좆', '계같은뇬', '계뇬',
     '계뇽', '쉬댕', '쉬뎅', '개생끼'
+
 ];
 
 
